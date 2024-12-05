@@ -5,4 +5,8 @@ description: Home Page
 hide: true
 ---
 
-My journey starts here.
+
+## Main
+
+Welcome to my blog! 
+
