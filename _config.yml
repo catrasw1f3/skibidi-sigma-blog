@@ -1,9 +1,14 @@
 title: Namira Sharif's blog
-description: "Class of 2028"
+description: "Hi!! My name is Namira (she/her) and this is my blog. Some basic info about me:
+I love any type of art. I like drawing, crafting, and music.
+I love cooking and baking. Honestly I just like making things in general. I make a lot of things.
+I LOVE fairies and anything fantasy-like.
+My favorite colors are green and purple, and I HATE the color blue.
+Strawberries are really cool. Same with cats."
 owner_name: Namira Sharif
 github_username: catrasw1f3
-github_repo: "skibidi sigma blog" 
-baseurl: "/skibidi_sigma_blog"
+github_repo: "namiras blog" 
+baseurl: "/namirasharif_blog"
 future: true
 remote_theme: jekyll/minima
 minima:
