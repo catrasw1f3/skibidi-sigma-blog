@@ -13,7 +13,6 @@ Welcome to my blog! My name is Namira (she/her). Some things about me:
 ## Family & Culture
 My parents are Bangladeshi immigrants, but I've lived in San Diego my whole life. 
 I do a few dance performances for Bangladeshi festivals every year or so. You can find them on my [YouTube](https://www.youtube.com/@NamiraSharif) 
-
 I have one (very annoying) younger brother, six cousins on my dad's side, two on my mom's. 2/8 of my cousins live back in Bangladesh.
 
 ## Hobbies/Interests
