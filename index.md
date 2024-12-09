@@ -20,7 +20,7 @@ I like arts and crafts! I mostly make stuff out of wire or draw, but other forms
 
 Some of the wire crafts I've made:
 <div style="text-align: center;">
-    <img src="![blue pendant](blue_pendant_wire_craft.webp)" alt="blue_pendant" width="400">
+    <img src="c:\Users\canad\.vscode\skibidi-sigma-blog\images\main\sword_wire_craft.webp" alt="wire_shark" width="400">
 
 
 
