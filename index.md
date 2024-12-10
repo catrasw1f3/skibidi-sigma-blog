@@ -21,11 +21,9 @@ I like arts and crafts! I mostly make stuff out of wire or draw, but other forms
 Some of the wire crafts I've made:
 <div style="text-align: center;">
     <img src="./images/main/sword_wire_craft.webp" 
-    alt="wire_swords" width="400">
-    <img src="./images/main/shark_wire_craft.webp" 
-    alt="wire_shark" width="400">
-    <img src="./images/main/blue_pendant_wire_craft.webp" 
-    alt="blue_pendant" width="400">
+    alt="wire_swords" width="150"> <img src="./images/main/shark_wire_craft.webp" 
+    alt="wire_shark" width="150"> <img src="./images/main/blue_pendant_wire_craft.webp" 
+    alt="blue_pendant" width="150">
 
 
 
