@@ -17,7 +17,7 @@ I like arts and crafts! I mostly make stuff out of wire or draw, but other forms
 
 Some of the wire crafts I've made:
 <div style="text-align: center;">
-<img src="./images/main/sword_wire_craft.webp" alt="wire_swords" height="200"> <img src="./images/main/shark_wire_craft.webp" alt="wire_shark" height="200"> <img src="./images/main/blue_pendant_wire_craft.webp" alt="blue_pendant" height="200">
+<img src="{{site.baseurl}}/images/sword_wire_craft.webp" alt="wire_swords" height="200"> <img src="{{site.baseurl}}/images/shark_wire_craft.webp" alt="wire_shark" height="200"> <img src="{{site.baseurl}}/images/blue_pendant_wire_craft.webp" alt="blue_pendant" height="200">
 
 <div style="text-align: left;">
 Speaking of art, I really like any type of animation. I've been making  few small animations (that I will not be sharing here--I'm not THAT good yet) and have trying to get better. Some of my most favorite shows are cartoons/animation, including:
