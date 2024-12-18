@@ -1,8 +1,8 @@
 title: Namira Sharif's blog
-description: ""
+description: "This blog will contain things about me, things I have learned in CSSE1, and my overall coding journey."
 owner_name: Namira Sharif
 github_username: catrasw1f3
-github_repo: "namiras blog" 
+github_repo: "skibidi-sigma-blog" 
 # baseurl: "/namirasharif_blog"
 future: true
 remote_theme: jekyll/minima
