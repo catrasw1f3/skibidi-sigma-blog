@@ -12,7 +12,7 @@ Welcome to my "About" page! Here is some basic information about me.
 My parents are Bangladeshi immigrants, but I've lived in San Diego my whole life. 
 I do a few dance performances for Bangladeshi festivals every year or so. You can find them on my [YouTube](https://www.youtube.com/@NamiraSharif). I have one (very annoying) younger brother, six cousins on my dad's side, two on my mom's. 5/8 of my cousins live back in Bangladesh.
 <div style="text-align: center;">
-<img src="{{site.baseurl}}/images/bangladeshi_flag.png" alt="bangladeshi_flag" width="200"> <img src="{{site.baseurl}}images/MERCUH.png" alt="american_flag" width="200"> <img src="{{site.baseurl}}images/cali_flag.png" alt="californian_flag" width="200">
+<img src="{{site.baseurl}}/images/bangladeshi_flag.png" alt="bangladeshi_flag" width="200"> <img src="{{site.baseurl}}/images/MERCUH.png" alt="american_flag" width="200"> <img src="{{site.baseurl}}/images/cali_flag.png" alt="californian_flag" width="200">
 
 <div style="text-align: left;">
 
