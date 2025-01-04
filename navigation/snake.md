@@ -124,7 +124,7 @@ permalink: /snake/
         const foodImage = new Image();
         foodImage.src = "../images/jmort_red.png"
         const bgImage = new Image();
-        bgImage.src "../images/jmort_grey.png"
+        bgImage.src = "../images/jmort_grey.png"
         // HTML Game IDs
         const SCREEN_SNAKE = 0;
         const screen_snake = document.getElementById("snake");
