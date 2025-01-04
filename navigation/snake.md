@@ -118,6 +118,13 @@ permalink: /snake/
         // Canvas & Context
         const canvas = document.getElementById("snake");
         const ctx = canvas.getContext("2d");
+        // Images
+        const snakeImage = new Image();
+        snakeImage.src = "../images/jmort_green.png"
+        const foodImage = new Image();
+        foodImage.src = "../images/jmort_red.png"
+        const bgImage = new Image();
+        bgImage.src "../images/jmort_grey.png"
         // HTML Game IDs
         const SCREEN_SNAKE = 0;
         const screen_snake = document.getElementById("snake");
@@ -136,7 +143,7 @@ permalink: /snake/
         const button_setting_menu = document.getElementById("setting_menu");
         const button_setting_menu1 = document.getElementById("setting_menu1");
         // Game Control
-        const BLOCK = 10;   // size of block rendering
+        const BLOCK = 20;   // size of block rendering
         let SCREEN = SCREEN_MENU;
         let snake;
         let snake_dir;
@@ -230,26 +237,21 @@ permalink: /snake/
             // Wall Checker
             if(wall === 1){
                 // Wall on, Game over test
-                if (snake[0].x < 0 || snake[0].x === canvas.width / BLOCK || snake[0].y < 0 || snake[0].y === canvas.height / BLOCK){
+                if (
+                    snake[0].x < 0 ||
+                    snake[0].x >= canvas.width / BLOCK ||
+                    snake[0].y < 0 ||
+                    snake[0].y >= canvas.height / BLOCK
+                ) {
                     showScreen(SCREEN_GAME_OVER);
                     return;
                 }
-            }else{
+            } else {
                 // Wall Off, Circle around
-                for(let i = 0, x = snake.length; i < x; i++){
-                    if(snake[i].x < 0){
-                        snake[i].x = snake[i].x + (canvas.width / BLOCK);
-                    }
-                    if(snake[i].x === canvas.width / BLOCK){
-                        snake[i].x = snake[i].x - (canvas.width / BLOCK);
-                    }
-                    if(snake[i].y < 0){
-                        snake[i].y = snake[i].y + (canvas.height / BLOCK);
-                    }
-                    if(snake[i].y === canvas.height / BLOCK){
-                        snake[i].y = snake[i].y - (canvas.height / BLOCK);
-                    }
-                }
+                if (snake[0].x < 0) snake[0].x = (canvas.width / BLOCK) - 1;
+                if (snake[0].x >= canvas.width / BLOCK) snake[0].x = 0;
+                if (snake[0].y < 0) snake[0].y = (canvas.height / BLOCK) - 1;
+                 if (snake[0].y >= canvas.height / BLOCK) snake[0].y = 0;
             }
             // Snake vs Snake checker
             for(let i = 1; i < snake.length; i++){
@@ -266,16 +268,14 @@ permalink: /snake/
                 addFood();
                 activeDot(food.x, food.y);
             }
-            // Repaint canvas
-            ctx.beginPath();
-            ctx.fillStyle = " #846bcd";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Draw background image
+            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
             // Paint snake
             for(let i = 0; i < snake.length; i++){
                 activeDot(snake[i].x, snake[i].y);
             }
             // Paint food
-            activeDot(food.x, food.y);
+            activeDot(food.x, food.y, true);
             // Debug
             //document.getElementById("debug").innerHTML = snake_dir + " " + snake_next_dir + " " + snake[0].x + " " + snake[0].y;
             // Recursive call after speed delay, déjà vu
@@ -290,10 +290,13 @@ permalink: /snake/
             // game score to zero
             score = 0;
             altScore(score);
-            // initial snake
+            // initialize snake in the center of the canvas
+            const initialX = Math.floor(canvas.width / (2 * BLOCK));
+            const initialY = Math.floor(canvas.height / (2 * BLOCK));
             snake = [];
-            snake.push({x: 0, y: 15});
-            snake_next_dir = 1;
+            snake.push({ x: initialX, y: initialY });
+            snake_next_dir = 1; // Initial direction: Right
+            snake_dir = 1; // Start moving right
             // food on canvas
             addFood();
             // activate canvas event
@@ -327,10 +330,13 @@ permalink: /snake/
         }
         /* Dot for Food or Snake part */
         /////////////////////////////////////////////////////////////
-        let activeDot = function(x, y){
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-        }
+        let activeDot = function(x, y, isFood = false) {
+            if (isFood) {
+                ctx.drawImage(foodImage, x * BLOCK, y * BLOCK, BLOCK, BLOCK); // Draw food
+            } else {
+                ctx.drawImage(snakeImage, x * BLOCK, y * BLOCK, BLOCK, BLOCK); // Draw snake part
+            }
+        };
         /* Random food placement */
         /////////////////////////////////////////////////////////////
         let addFood = function(){
