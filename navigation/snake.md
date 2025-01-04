@@ -179,6 +179,12 @@ permalink: /snake/
                     screen_setting.style.display = "block";
                     screen_game_over.style.display = "none";
                     break;
+                case SCREEN_MENU:
+                    screen_snake.style.display = "none";
+                    screen_menu.style.display = "block";
+                    screen_setting.style.display = "none";
+                    screen_game_over.style.display = "none";
+                    break;
             }
         }
         /* Actions and Events  */
