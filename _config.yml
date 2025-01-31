@@ -25,4 +25,4 @@ header_pages:
   - navigation/about.md
   - navigation/snake.md
   - README4YML.md
-  - navigation/adventureGame.md
+  - navigation/gamify/adventureGame.md
