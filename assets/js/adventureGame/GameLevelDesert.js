@@ -6,7 +6,7 @@ import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
 
-class GameLevelEgypt {
+class GameLevelDesert {
   constructor(gameEnv) {
     // Values dependent on this.gameEnv.create()
     let width = gameEnv.innerWidth;
@@ -14,28 +14,28 @@ class GameLevelEgypt {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.jpg"; // be sure to include the path
-    const image_data_egypt = {
-        name: 'Ancient Egypt',
-        greeting: "Oh no! Somehow, we traveled back to Ancient Egypt! Try and figure out how to escape!",
-        src: image_src_egypt,
+    const image_src_desert = path + "/images/gamify/desert.png"; // be sure to include the path
+    const image_data_desert = {
+        name: 'desert',
+        greeting: "Welcome to the desert!  It is hot and dry here, but there are many adventures to be had!",
+        src: image_src_desert,
         pixels: {height: 580, width: 1038}
     };
 
 
-    // Player data for Player
-    const sprite_src_player = path + "/images/gamify/tourist-sprite-sheet-pixilart (3).png"; // be sure to include the path
-    const PLAYER_SCALE_FACTOR = 5;
-    const sprite_data_player = {
-        id: 'Player',
-        greeting: "This is me! I have to work to escape this era and go back to my own time period!",
-        src: sprite_src_player,
-        SCALE_FACTOR: PLAYER_SCALE_FACTOR,
+    // Player data for Chillguy
+    const sprite_src_chillguy = path + "/images/gamify/chillguy.png"; // be sure to include the path
+    const CHILLGUY_SCALE_FACTOR = 5;
+    const sprite_data_chillguy = {
+        id: 'Chill Guy',
+        greeting: "Hi I am Chill Guy, the desert wanderer. I am looking for wisdom and adventure!",
+        src: sprite_src_chillguy,
+        SCALE_FACTOR: CHILLGUY_SCALE_FACTOR,
         STEP_FACTOR: 1000,
-        ANIMATION_RATE: 75,
-        INIT_POSITION: { x: 0, y: height - (height/PLAYER_SCALE_FACTOR) }, 
-        pixels: {height: 320, width: 120},
-        orientation: {rows: 4, columns: 3 },
+        ANIMATION_RATE: 50,
+        INIT_POSITION: { x: 0, y: height - (height/CHILLGUY_SCALE_FACTOR) }, 
+        pixels: {height: 384, width: 512},
+        orientation: {rows: 3, columns: 4 },
         down: {row: 0, start: 0, columns: 3 },
         downRight: {row: 1, start: 0, columns: 3, rotate: Math.PI/16 },
         downLeft: {row: 2, start: 0, columns: 3, rotate: -Math.PI/16 },
@@ -59,7 +59,7 @@ class GameLevelEgypt {
         SCALE_FACTOR: 8,  // Adjust this based on your scaling needs
         ANIMATION_RATE: 50,
         pixels: {height: 256, width: 352},
-        INIT_POSITION: { x: (width / 2), y: ((height / 2) + 50)},
+        INIT_POSITION: { x: (width / 2), y: (height / 2)},
         orientation: {rows: 8, columns: 11 },
         down: {row: 5, start: 0, columns: 3 },  // This is the stationary npc, down is default 
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -172,26 +172,26 @@ class GameLevelEgypt {
       }
     }
 
-    // NPC Data for Tomb Guard
-    const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png"; // be sure to include the path
-    const sprite_greet_tombguard = "I am the guardian of the ancient tomb. You seem to be important (and in a hurry), so I'll let you pass just this once. Don't expect this often.";
-    const sprite_data_tombguard = {
-      id: 'Tomb Guard',
-      greeting: sprite_greet_tombguard,
-      src: sprite_src_tombguard,
-      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
+    // NPC Data for R2D2
+    const sprite_src_r2d2 = path + "/images/gamify/r2_idle.png"; // be sure to include the path
+    const sprite_greet_r2d2 = "Hi I am R2D2.  Leave this planet and help defent the rebel base on Hoth!";
+    const sprite_data_r2d2 = {
+      id: 'StarWarsR2D2',
+      greeting: sprite_greet_r2d2,
+      src: sprite_src_r2d2,
+      SCALE_FACTOR: 8,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
-      pixels: {width: 63, height: 120},
-      INIT_POSITION: { x: ((width / 2) - 75), y: ((height * 3 / 4) - 40)}, // Adjusted position
-      orientation: {rows: 1, columns: 1 },
-      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
+      pixels: {width: 505, height: 223},
+      INIT_POSITION: { x: (width * 1 / 4), y: (height * 3 / 4)}, // Adjusted position
+      orientation: {rows: 1, columns: 3 },
+      down: {row: 0, start: 0, columns: 3 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
       /* Reaction function
       *  This function is called when the player interacts with the NPC
       *  It displays an alert with the greeting message
       */
       reaction: function() {
-        alert(sprite_greet_tombguard);
+        alert(sprite_greet_r2d2);
       },
       /* Interact function
       *  This function is called when the player interacts with the NPC
@@ -219,16 +219,16 @@ class GameLevelEgypt {
 
     // List of objects defnitions for this level
     this.classes = [
-      { class: Background, data: image_data_egypt },
-      { class: Player, data: sprite_data_player },
+      { class: Background, data: image_data_desert },
+      { class: Player, data: sprite_data_chillguy },
       { class: Npc, data: sprite_data_tux },
       { class: Npc, data: sprite_data_octocat },
       { class: Npc, data: sprite_data_robot },
-      { class: Npc, data: sprite_data_tombguard },
+      { class: Npc, data: sprite_data_r2d2 },
     ];
     
   }
 
 }
 
-export default GameLevelEgypt;
+export default GameLevelDesert;
