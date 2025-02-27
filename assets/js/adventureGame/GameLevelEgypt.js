@@ -23,19 +23,19 @@ class GameLevelEgypt {
     };
 
 
-    // Player data for Chillguy
-    const sprite_src_chillguy = path + "/images/gamify/chillguy.png"; // be sure to include the path
-    const CHILLGUY_SCALE_FACTOR = 5;
-    const sprite_data_chillguy = {
-        id: 'Chill Guy',
-        greeting: "Hi I am Chill Guy, the  wanderer. I am looking for wisdom and adventure!",
-        src: sprite_src_chillguy,
-        SCALE_FACTOR: CHILLGUY_SCALE_FACTOR,
+    // Player data for Tourist
+    const sprite_src_tourist = path + "/images/gamify/tourist.png"; // be sure to include the path
+    const TOURIST_SCALE_FACTOR = 5;
+    const sprite_data_tourist = {
+        id: 'Tourist',
+        greeting: "Hi I am  Guy, the  wanderer. I am looking for wisdom and adventure!",
+        src: sprite_src_tourist,
+        SCALE_FACTOR: TOURIST_SCALE_FACTOR,
         STEP_FACTOR: 1000,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: 0, y: height - (height/CHILLGUY_SCALE_FACTOR) }, 
-        pixels: {height: 384, width: 512},
-        orientation: {rows: 3, columns: 4 },
+        INIT_POSITION: { x: 0, y: height - (height/TOURIST_SCALE_FACTOR) }, 
+        pixels: {height: 320, width: 120},
+        orientation: {rows: 4, columns: 3 },
         down: {row: 0, start: 0, columns: 3 },
         downRight: {row: 1, start: 0, columns: 3, rotate: Math.PI/16 },
         downLeft: {row: 2, start: 0, columns: 3, rotate: -Math.PI/16 },
@@ -220,7 +220,7 @@ class GameLevelEgypt {
     // List of objects defnitions for this level
     this.classes = [
       { class: Background, data: image_data_egypt },
-      { class: Player, data: sprite_data_chillguy },
+      { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_tux },
       { class: Npc, data: sprite_data_octocat },
       { class: Npc, data: sprite_data_robot },
