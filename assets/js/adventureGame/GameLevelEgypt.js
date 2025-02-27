@@ -6,7 +6,7 @@ import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
 
-class GameLevelDesert {
+class GameLevelEgypt {
   constructor(gameEnv) {
     // Values dependent on this.gameEnv.create()
     let width = gameEnv.innerWidth;
@@ -14,11 +14,11 @@ class GameLevelDesert {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_desert = path + "/images/gamify/desert.png"; // be sure to include the path
-    const image_data_desert = {
-        name: 'desert',
-        greeting: "Welcome to the desert!  It is hot and dry here, but there are many adventures to be had!",
-        src: image_src_desert,
+    const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.jpg"; // be sure to include the path
+    const image_data_egypt = {
+        name: 'Ancient Egypt',
+        greeting: "Oh no! Somehow, we travelled back to Ancient Egypt! Find your way out and travel back to your original timeline!",
+        src: image_src_egypt,
         pixels: {height: 580, width: 1038}
     };
 
@@ -28,7 +28,7 @@ class GameLevelDesert {
     const CHILLGUY_SCALE_FACTOR = 5;
     const sprite_data_chillguy = {
         id: 'Chill Guy',
-        greeting: "Hi I am Chill Guy, the desert wanderer. I am looking for wisdom and adventure!",
+        greeting: "Hi I am Chill Guy, the  wanderer. I am looking for wisdom and adventure!",
         src: sprite_src_chillguy,
         SCALE_FACTOR: CHILLGUY_SCALE_FACTOR,
         STEP_FACTOR: 1000,
@@ -219,7 +219,7 @@ class GameLevelDesert {
 
     // List of objects defnitions for this level
     this.classes = [
-      { class: Background, data: image_data_desert },
+      { class: Background, data: image_data_egypt },
       { class: Player, data: sprite_data_chillguy },
       { class: Npc, data: sprite_data_tux },
       { class: Npc, data: sprite_data_octocat },
@@ -231,4 +231,4 @@ class GameLevelDesert {
 
 }
 
-export default GameLevelDesert;
+export default GameLevelEgypt;
