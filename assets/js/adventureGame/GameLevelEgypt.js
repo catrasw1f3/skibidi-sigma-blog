@@ -28,7 +28,7 @@ class GameLevelEgypt {
     const TOURIST_SCALE_FACTOR = 5;
     const sprite_data_tourist = {
         id: 'Tourist',
-        greeting: "Hi I am  Guy, the  wanderer. I am looking for wisdom and adventure!",
+        greeting: "I'm you! And I'm definitely not in the right era...",
         src: sprite_src_tourist,
         SCALE_FACTOR: TOURIST_SCALE_FACTOR,
         STEP_FACTOR: 1000,
@@ -172,26 +172,26 @@ class GameLevelEgypt {
       }
     }
 
-    // NPC Data for R2D2
-    const sprite_src_r2d2 = path + "/images/gamify/r2_idle.png"; // be sure to include the path
-    const sprite_greet_r2d2 = "Hi I am R2D2.  Leave this planet and help defent the rebel base on Hoth!";
-    const sprite_data_r2d2 = {
-      id: 'StarWarsR2D2',
-      greeting: sprite_greet_r2d2,
-      src: sprite_src_r2d2,
-      SCALE_FACTOR: 8,  // Adjust this based on your scaling needs
+    // NPC Data for Tomb Guard
+    const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png"; // be sure to include the path
+    const sprite_greet_tombguard = "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....";
+    const sprite_data_tombguard = {
+      id: 'Tomb Guard',
+      greeting: sprite_greet_tombguard,
+      src: sprite_src_tombguard,
+      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
-      pixels: {width: 505, height: 223},
-      INIT_POSITION: { x: (width * 1 / 4), y: (height * 3 / 4)}, // Adjusted position
-      orientation: {rows: 1, columns: 3 },
-      down: {row: 0, start: 0, columns: 3 },  // This is the stationary npc, down is default 
+      pixels: {width: 63, height: 120},
+      INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 200)}, // Adjusted position
+      orientation: {rows: 1, columns: 1 },
+      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
       /* Reaction function
       *  This function is called when the player interacts with the NPC
       *  It displays an alert with the greeting message
       */
       reaction: function() {
-        alert(sprite_greet_r2d2);
+        alert(sprite_greet_tombguard);
       },
       /* Interact function
       *  This function is called when the player interacts with the NPC
@@ -224,7 +224,7 @@ class GameLevelEgypt {
       { class: Npc, data: sprite_data_tux },
       { class: Npc, data: sprite_data_octocat },
       { class: Npc, data: sprite_data_robot },
-      { class: Npc, data: sprite_data_r2d2 },
+      { class: Npc, data: sprite_data_tombguard },
     ];
     
   }
