@@ -49,7 +49,7 @@ class Quiz {
         const header = document.createElement("tr");
         const th = document.createElement("th");
         th.colSpan = 2;
-        th.innerText = "Answer the Questions Below:";
+        th.innerText = "Answer the Questions.";
         header.appendChild(th);
         table.appendChild(header);
     
@@ -120,7 +120,7 @@ class Quiz {
         console.log("Submitted Answers:", answers);
     
         // Handle the submission logic (e.g., save answers, validate, etc.)
-        alert("Your answers have been submitted!");
+        alert("Those were definitely some answers. I will go check them now.");
     
         // Close the prompt and go back to the main level
         this.isOpen = false;

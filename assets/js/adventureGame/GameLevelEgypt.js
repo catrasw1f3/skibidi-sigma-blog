@@ -49,43 +49,43 @@ class GameLevelEgypt {
     };
 
 
-    // NPC data for Tux 
-    const sprite_src_tux = path + "/images/gamify/tux.png"; // be sure to include the path
-    const sprite_greet_tux = "Hi I am Tux, the Linux mascot.  I am very happy to spend some linux shell time with you!";
-    const sprite_data_tux = {
-        id: 'Tux',
-        greeting: sprite_greet_tux,
-        src: sprite_src_tux,
-        SCALE_FACTOR: 8,  // Adjust this based on your scaling needs
+    // NPC data for Pyramid Guard 
+    const sprite_src_pyramidguard = path + "/images/gamify/pyramid_guard.png"; // be sure to include the path
+    const sprite_greet_pyramidguard = "I am the guardian of the pyramid. Wait--you don't look like you're from around here. I'll have to quiz you!";
+    const sprite_data_pyramidguard = {
+        id: 'Pyramid Guard',
+        greeting: sprite_greet_pyramidguard,
+        src: sprite_src_pyramidguard,
+        SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
         ANIMATION_RATE: 50,
-        pixels: {height: 256, width: 352},
+        pixels: {height: 120, width: 63},
         INIT_POSITION: { x: (width / 2), y: (height / 2)},
-        orientation: {rows: 8, columns: 11 },
-        down: {row: 5, start: 0, columns: 3 },  // This is the stationary npc, down is default 
+        orientation: {rows: 1, columns: 1 },
+        down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        // Linux command quiz
+        // Ancient egypt quiz
         quiz: { 
-          title: "Linux Command Quiz",
+          title: "Ancient Egypt Quiz",
           questions: [
-            "Which command is used to list files in a directory?\n1. ls\n2. dir\n3. list\n4. show",
-            "Which command is used to change directories?\n1. cd\n2. chdir\n3. changedir\n4. changedirectory",
-            "Which command is used to create a new directory?\n1. mkdir\n2. newdir\n3. createdir\n4. makedir",
-            "Which command is used to remove a file?\n1. rm\n2. remove\n3. delete\n4. erase",
-            "Which command is used to remove a directory?\n1. rmdir\n2. removedir\n3. deletedir\n4. erasedir",
-            "Which command is used to copy files?\n1. cp\n2. copy\n3. duplicate\n4. xerox",
-            "Which command is used to move files?\n1. mv\n2. move\n3. transfer\n4. relocate",
-            "Which command is used to view a file?\n1. cat\n2. view\n3. show\n4. display",
-            "Which command is used to search for text in a file?\n1. grep\n2. search\n3. find\n4. locate",
-            "Which command is used to view the contents of a file?\n1. less\n2. more\n3. view\n4. cat" 
+            "Who was the first pharaoh of Egypt?\n1. Narmer\n2. Ramses II\n3. Tutankhamun\n4. Cleopatra",
+            "What is the name of the ancient Egyptian writing system?\n1. Hieroglyphics\n2. Cuneiform\n3. Latin\n4. Greek",
+            "Which river was crucial to the development of ancient Egyptian civilization?\n1. Nile\n2. Amazon\n3. Tigris\n4. Euphrates",
+            "What structure is the Great Pyramid of Giza?\n1. Tomb\n2. Temple\n3. Palace\n4. Fortress",
+            "Who was the Egyptian god of the afterlife?\n1. Osiris\n2. Ra\n3. Anubis\n4. Horus",
+            "What was the primary material used in ancient Egyptian construction?\n1. Stone\n2. Wood\n3. Brick\n4. Metal",
+            "Which queen was known for her beauty and political acumen?\n1. Cleopatra\n2. Nefertiti\n3. Hatshepsut\n4. Isis",
+            "What was the purpose of the Sphinx?\n1. Guardian of the Giza Plateau\n2. Temple\n3. Palace\n4. Fortress",
+            "Which pharaoh's tomb was discovered intact in 1922?\n1. Tutankhamun\n2. Ramses II\n3. Akhenaten\n4. Hatshepsut",
+            "What was the primary purpose of the pyramids?\n1. Tombs for pharaohs\n2. Temples\n3. Palaces\n4. Fortresses" 
           ] 
         },
         reaction: function() {
-          alert(sprite_greet_tux);
+          alert(sprite_greet_pyramidguard);
         },
         interact: function() {
           let quiz = new Quiz(); // Create a new Quiz instance
           quiz.initialize();
-          quiz.openPanel(sprite_data_tux.quiz);
+          quiz.openPanel(sprite_data_pyramidguard.quiz);
           }
     
       };
@@ -182,7 +182,7 @@ class GameLevelEgypt {
       SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: {width: 63, height: 120},
-      INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 200)}, // Adjusted position
+      INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 20)}, // Adjusted position
       orientation: {rows: 1, columns: 1 },
       down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -221,7 +221,7 @@ class GameLevelEgypt {
     this.classes = [
       { class: Background, data: image_data_egypt },
       { class: Player, data: sprite_data_tourist },
-      { class: Npc, data: sprite_data_tux },
+      { class: Npc, data: sprite_data_pyramidguard },
       { class: Npc, data: sprite_data_octocat },
       { class: Npc, data: sprite_data_robot },
       { class: Npc, data: sprite_data_tombguard },
