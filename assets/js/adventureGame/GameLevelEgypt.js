@@ -14,7 +14,7 @@ class GameLevelEgypt {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.jpg"; // be sure to include the path
+    const image_src_egypt = path + "/images/gamify/ancientegyptbackground.png"; // be sure to include the path
     const image_data_egypt = {
         name: 'Ancient Egypt',
         greeting: "Oh no! Somehow, we travelled back to Ancient Egypt! Find your way out and travel back to your original timeline!",
@@ -31,7 +31,7 @@ class GameLevelEgypt {
         greeting: "I'm you! And I'm definitely not in the right era...",
         src: sprite_src_tourist,
         SCALE_FACTOR: TOURIST_SCALE_FACTOR,
-        STEP_FACTOR: 1000,
+        STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
         INIT_POSITION: { x: 0, y: height - (height/TOURIST_SCALE_FACTOR) }, 
         pixels: {height: 320, width: 120},
@@ -48,14 +48,143 @@ class GameLevelEgypt {
         keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
     };
 
+    
+    // Rat Guide data
+    const sprite_src_guide = path + "/images/gamify/ratguide.png"; // be sure to include the path
+    const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
+    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history, thriving along the Nile River, which provided fertile land and a stable food supply. The first pharaoh of Egypt was Narmer, who unified Upper and Lower Egypt around 3100 BCE. The Egyptians developed hieroglyphics, a complex writing system using pictorial symbols to record their history, religious beliefs, and government activities. The Great Pyramid of Giza, built as a tomb for Pharaoh Khufu, stands as a remarkable achievement of Egyptian engineering, primarily constructed from stone. The pyramids were built as tombs for pharaohs, ensuring their safe passage into the afterlife. The Sphinx, a majestic statue with a lion’s body and a human head, served as the guardian of the Giza Plateau. Egyptian religion played a significant role in daily life, with Osiris being the god of the afterlife and Cleopatra known for her beauty and political skill in leading Egypt. Another famous queen, Nefertiti, was admired for her powerful influence during the reign of Pharaoh Akhenaten. Pharaoh Tutankhamun, often called King Tut, is famous today because his tomb was discovered nearly intact in 1922, providing valuable insights into Egyptian burial practices. Ancient Egypt’s rich culture, monumental architecture, and powerful rulers continue to captivate the world today.";
+    const sprite_data_guide = {
+      id: 'Rat Guide',
+      greeting_intro: sprite_greet_guide_intro,
+      greeting_info: sprite_greet_guide_info,
+      src: sprite_src_guide,
+      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
+      ANIMATION_RATE: 100,
+      pixels: {width: 150, height: 194},
+      INIT_POSITION: { x: 100, y: height - (height / TOURIST_SCALE_FACTOR) }, // Adjusted position
+      orientation: {rows: 1, columns: 1 },
+      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
+      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+    };
+
+    // Custom alert function to handle sequential notifications
+    function customAlert(message, callback) {
+      alert(message);
+      if (callback) callback();
+    }
+
+    // Display the initial notification automatically
+    setTimeout(() => {
+      customAlert(image_data_egypt.greeting);
+    }, 1000); // Display the first notification 1 second after the game starts
+
+    // Function to handle player interaction and display Rat Guide notifications
+    function handlePlayerInteraction(event) {
+      const keys = [87, 65, 83, 68]; // W, A, S, D key codes
+      if (keys.includes(event.keyCode)) {
+        setTimeout(() => {
+          customAlert(sprite_data_guide.greeting_intro, () => {
+            customAlert(sprite_data_guide.greeting_info);
+          });
+        }, 500); // Display the Rat Guide notifications 0.5 seconds after interaction
+        window.removeEventListener('keydown', handlePlayerInteraction); // Remove the event listener after the first interaction
+      }
+    }
+
+    // Add event listener for player interaction
+    window.addEventListener('keydown', handlePlayerInteraction);
+    // Log the guide's data and position
+    console.log("Rat Guide Data:", sprite_data_guide);
+    console.log("Rat Guide Position:", sprite_data_guide.INIT_POSITION.x, sprite_data_guide.INIT_POSITION.y);
+
+    // Quiz data
+    const quizData = {
+      title: "Ancient Egypt Quiz",
+      questions: [
+        {
+          question: "Who was the first pharaoh of Egypt?",
+          options: ["Narmer", "Ramses II", "Tutankhamun", "Cleopatra"],
+          correctAnswer: 0
+        },
+        {
+          question: "What is the name of the ancient Egyptian writing system?",
+          options: ["Hieroglyphics", "Cuneiform", "Latin", "Greek"],
+          correctAnswer: 0
+        },
+        {
+          question: "Which river was crucial to the development of ancient Egyptian civilization?",
+          options: ["Nile", "Amazon", "Tigris", "Euphrates"],
+          correctAnswer: 0
+        },
+        {
+          question: "What structure is the Great Pyramid of Giza?",
+          options: ["Tomb", "Temple", "Palace", "Fortress"],
+          correctAnswer: 0
+        },
+        {
+          question: "Who was the Egyptian god of the afterlife?",
+          options: ["Osiris", "Ra", "Anubis", "Horus"],
+          correctAnswer: 0
+        },
+        {
+          question: "What was the primary material used in ancient Egyptian construction?",
+          options: ["Stone", "Wood", "Brick", "Metal"],
+          correctAnswer: 0
+        },
+        {
+          question: "Which queen was known for her beauty and political acumen?",
+          options: ["Cleopatra", "Nefertiti", "Hatshepsut", "Isis"],
+          correctAnswer: 0
+        },
+        {
+          question: "What was the purpose of the Sphinx?",
+          options: ["Guardian of the Giza Plateau", "Temple", "Palace", "Fortress"],
+          correctAnswer: 0
+        },
+        {
+          question: "Which pharaoh's tomb was discovered intact in 1922?",
+          options: ["Tutankhamun", "Ramses II", "Akhenaten", "Hatshepsut"],
+          correctAnswer: 0
+        },
+        {
+          question: "What was the primary purpose of the pyramids?",
+          options: ["Tombs for pharaohs", "Temples", "Palaces", "Fortresses"],
+          correctAnswer: 0
+        }
+      ]
+    };
+
+    
+    // Shuffle the answers and update the correct answers
+    function shuffleAnswers(quizData) {
+      quizData.questions.forEach(question => {
+        const correctAnswer = question.options[question.correctAnswer];
+        const shuffledOptions = question.options
+          .map(option => ({ option, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ option }) => option);
+        question.correctAnswer = shuffledOptions.indexOf(correctAnswer);
+        question.options = shuffledOptions;
+      });
+    }
+
+    // Shuffle the questions and answers
+    function shuffleQuestionsAndAnswers(quizData) {
+      quizData.questions = quizData.questions
+        .map(question => ({ question, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ question }) => question);
+      shuffleAnswers(quizData);
+    }
 
     // NPC data for Pyramid Guard 
     const sprite_src_pyramidguard = path + "/images/gamify/pyramid_guard.png"; // be sure to include the path
-    const sprite_greet_pyramidguard = "I am the guardian of the pyramid. Wait--you don't look like you're from around here. I'll have to quiz you!";
+    const sprite_greet_pyramidguard = "I am the guardian of the pyramid. Wait--you don't look like you're from around here. I'll have to quiz you! Press 'E' to start the quiz.";
     const sprite_data_pyramidguard = {
         id: 'Pyramid Guard',
         greeting: sprite_greet_pyramidguard,
         src: sprite_src_pyramidguard,
+        STEP_FACTOR: 1000,
         SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
         ANIMATION_RATE: 50,
         pixels: {height: 120, width: 63},
@@ -63,172 +192,56 @@ class GameLevelEgypt {
         orientation: {rows: 1, columns: 1 },
         down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        // Ancient egypt quiz
-        quiz: { 
-          title: "Ancient Egypt Quiz",
-          questions: [
-            "Who was the first pharaoh of Egypt?\n1. Narmer\n2. Ramses II\n3. Tutankhamun\n4. Cleopatra",
-            "What is the name of the ancient Egyptian writing system?\n1. Hieroglyphics\n2. Cuneiform\n3. Latin\n4. Greek",
-            "Which river was crucial to the development of ancient Egyptian civilization?\n1. Nile\n2. Amazon\n3. Tigris\n4. Euphrates",
-            "What structure is the Great Pyramid of Giza?\n1. Tomb\n2. Temple\n3. Palace\n4. Fortress",
-            "Who was the Egyptian god of the afterlife?\n1. Osiris\n2. Ra\n3. Anubis\n4. Horus",
-            "What was the primary material used in ancient Egyptian construction?\n1. Stone\n2. Wood\n3. Brick\n4. Metal",
-            "Which queen was known for her beauty and political acumen?\n1. Cleopatra\n2. Nefertiti\n3. Hatshepsut\n4. Isis",
-            "What was the purpose of the Sphinx?\n1. Guardian of the Giza Plateau\n2. Temple\n3. Palace\n4. Fortress",
-            "Which pharaoh's tomb was discovered intact in 1922?\n1. Tutankhamun\n2. Ramses II\n3. Akhenaten\n4. Hatshepsut",
-            "What was the primary purpose of the pyramids?\n1. Tombs for pharaohs\n2. Temples\n3. Palaces\n4. Fortresses" 
-          ] 
-        },
+        quiz: quizData,
         reaction: function() {
           alert(sprite_greet_pyramidguard);
         },
         interact: function() {
+          shuffleQuestionsAndAnswers(sprite_data_pyramidguard.quiz);
           let quiz = new Quiz(); // Create a new Quiz instance
           quiz.initialize();
           quiz.openPanel(sprite_data_pyramidguard.quiz);
-          }
-    
-      };
-
-
-
-      // NPC data for Octocat
-      const sprite_src_octocat = path + "/images/gamify/octocat.png"; // be sure to include the path
-      const sprite_greet_octocat = "Hi I am Octocat! I am the GitHub code code code collaboration mascot";
-      const sprite_data_octocat = {
-        id: 'Octocat',
-        greeting: sprite_greet_octocat,
-        src: sprite_src_octocat,
-        SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
-        ANIMATION_RATE: 50,
-        pixels: {height: 301, width: 801},
-        INIT_POSITION: { x: (width / 4), y: (height / 4)},
-        orientation: {rows: 1, columns: 4 },
-        down: {row: 0, start: 0, columns: 3 },  // This is the stationary npc, down is default 
-        hitbox: { widthPercentage: 0.1, heightPercentage: 0.1 },
-        // GitHub command quiz 
-        quiz: { 
-          title: "GitHub Command Quiz",
-          questions: [
-            "Which command is used to clone a repository?\n1. git clone\n2. git fork\n3. git copy\n4. git download",
-            "Which command is used to add changes to the staging area?\n1. git add\n2. git stage\n3. git commit\n4. git push",
-            "Which command is used to commit changes?\n1. git commit\n2. git add\n3. git save\n4. git push",
-            "Which command is used to push changes to a remote repository?\n1. git push\n2. git upload\n3. git send\n4. git commit",
-            "Which command is used to pull changes from a remote repository?\n1. git pull\n2. git fetch\n3. git receive\n4. git update",
-            "Which command is used to check the status of the working directory and staging area?\n1. git status\n2. git check\n3. git info\n4. git log",
-            "Which command is used to create a new branch?\n1. git branch\n2. git create-branch\n3. git new-branch\n4. git checkout",
-            "Which command is used to switch to a different branch?\n1. git checkout\n2. git switch\n3. git change-branch\n4. git branch",
-            "Which command is used to merge branches?\n1. git merge\n2. git combine\n3. git join\n4. git integrate",
-            "Which command is used to view the commit history?\n1. git log\n2. git history\n3. git commits\n4. git show"
-          ] 
-        },
-        reaction: function() {
-          alert(sprite_greet_octocat);
-        },
-        interact: function() {
-          let quiz = new Quiz(); // Create a new Quiz instance
-          quiz.initialize();
-          quiz.openPanel(sprite_data_octocat.quiz);
         }
-    }
-  
-
-    const sprite_src_robot = path + "/images/gamify/robot.png"; // be sure to include the path
-    const sprite_greet_robot = "Hi I am Robot, the Jupyter Notebook mascot.  I am very happy to spend some linux shell time with you!";
-    const sprite_data_robot = {
-      id: 'Robot',
-      greeting: sprite_greet_robot,
-      src: sprite_src_robot,
-      SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
-      ANIMATION_RATE: 100,
-      pixels: {height: 316, width: 627},
-      INIT_POSITION: { x: (width * 3 / 4), y: (height * 1 / 4)},
-      orientation: {rows: 3, columns: 6 },
-      down: {row: 1, start: 0, columns: 6 },  // This is the stationary npc, down is default 
-      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-      // Linux command quiz
-      quiz: { 
-        title: "Jupyter Notebook Command Quiz",
-        questions: [
-          "Which shortcut is used to run a cell in Jupyter Notebook?\n1. Shift + Enter\n2. Ctrl + Enter\n3. Alt + Enter\n4. Tab + Enter",
-          "Which shortcut adds a new cell above the current cell?\n1. A\n2. B\n3. C\n4. D",
-          "Which shortcut adds a new cell below the current cell?\n1. B\n2. A\n3. C\n4. D",
-          "Which shortcut changes a cell to Markdown format?\n1. M\n2. Y\n3. R\n4. K",
-          "Which shortcut changes a cell to Code format?\n1. Y\n2. M\n3. C\n4. D",
-          "Which shortcut deletes the current cell?\n1. D, D\n2. X\n3. Del\n4. Ctrl + D",
-          "Which shortcut saves the current notebook?\n1. Ctrl + S\n2. Alt + S\n3. Shift + S\n4. Tab + S",
-          "Which shortcut restarts the kernel?\n1. 0, 0\n2. R, R\n3. K, K\n4. Shift + R",
-          "Which shortcut interrupts the kernel?\n1. I, I\n2. Ctrl + C\n3. Shift + I\n4. Alt + I",
-          "Which shortcut toggles line numbers in a cell?\n1. L\n2. N\n3. T\n4. G"
-        ] 
-      },
-      reaction: function() {
-        alert(sprite_greet_robot);
-      },
-      interact: function() {
-        let quiz = new Quiz(); // Create a new Quiz instance
-        quiz.initialize();
-        quiz.openPanel(sprite_data_robot.quiz);
-      }
-    }
-
-    // NPC Data for Tomb Guard
-    const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png"; // be sure to include the path
-    const sprite_greet_tombguard = "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....";
-    const sprite_data_tombguard = {
-      id: 'Tomb Guard',
-      greeting: sprite_greet_tombguard,
-      src: sprite_src_tombguard,
-      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
-      ANIMATION_RATE: 100,
-      pixels: {width: 63, height: 120},
-      INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 20)}, // Adjusted position
-      orientation: {rows: 1, columns: 1 },
-      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
-      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-      /* Reaction function
-      *  This function is called when the player interacts with the NPC
-      *  It displays an alert with the greeting message
-      */
-      reaction: function() {
-        alert(sprite_greet_tombguard);
-      },
-      /* Interact function
-      *  This function is called when the player interacts with the NPC
-      *  It pauses the main game, creates a new GameControl instance with the StarWars level,
-      */
-      interact: function() {
-        // Set a primary game reference from the game environment
-        let primaryGame = gameEnv.gameControl;
-        // Define the game in game level
-        let levelArray = [GameLevelStarWars];
-        // Define a new GameControl instance with the StarWars level
-        let gameInGame = new GameControl(path,levelArray);
-        // Pause the primary game 
-        primaryGame.pause();
-        // Start the game in game
-        gameInGame.start();
-        // Setup "callback" function to allow transition from game in gaame to the underlying game
-        gameInGame.gameOver = function() {
-          // Call .resume on primary game
-          primaryGame.resume();
-        }
-      }
-
     };
 
-    // List of objects defnitions for this level
-    this.classes = [
-      { class: Background, data: image_data_egypt },
-      { class: Player, data: sprite_data_tourist },
-      { class: Npc, data: sprite_data_pyramidguard },
-      { class: Npc, data: sprite_data_octocat },
-      { class: Npc, data: sprite_data_robot },
-      { class: Npc, data: sprite_data_tombguard },
-    ];
+      const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png";
+      const sprite_greet_tombguard = [
+        "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....",
+        "You again? I thought I told you to beware of the cat!",
+        "Welcome back, traveler. Remember, the cat is always watching.",
+        "I see you've returned. The cat is still out there, lurking."
+      ];
+      const sprite_data_tombguard = {
+        id: 'Tomb Guard',
+        greetings: sprite_greet_tombguard,
+        src: sprite_src_tombguard,
+        SCALE_FACTOR: 5,
+        ANIMATION_RATE: 100,
+        pixels: { width: 63, height: 120 },
+        INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 20) },
+        orientation: { rows: 1, columns: 1 },
+        down: { row: 0, start: 0, columns: 1 },
+        hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+
+        reaction: () => {
+          const randomGreeting = sprite_data_tombguard.greetings[Math.floor(Math.random() * sprite_data_tombguard.greetings.length)];
+          alert(randomGreeting);
+        }
+      };
+  
     
-  }
-
-}
-
-export default GameLevelEgypt;
+        // List of objects defnitions for this level
+        this.classes = [
+          { class: Background, data: image_data_egypt },
+          { class: Player, data: sprite_data_tourist },
+          { class: Npc, data: sprite_data_pyramidguard },
+          { class: Npc, data: sprite_data_tombguard },
+          { class: Npc, data: sprite_data_guide },
+        ];
+    
+        
+      }
+    
+    }
+    
+    export default GameLevelEgypt;
