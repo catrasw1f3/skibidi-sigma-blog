@@ -1,6 +1,6 @@
 // GameControl.js
 import GameLevel from "./GameLevel.js";
-import GameLevelWater from "./GameLevelWater.js";
+import GameLevelLondon from "./GameLevelLondon.js";
 import GameLevelEgypt from "./GameLevelEgypt.js";
 
 class GameControl {
@@ -9,7 +9,7 @@ class GameControl {
      * @param {*} path - The path to the game assets
      * @param {*} levelClasses - The classes of for each game level
      */
-    constructor(path, levelClasses = [GameLevelEgypt, GameLevelWater]) {
+    constructor(path, levelClasses = [GameLevelEgypt, GameLevelLondon]) {
         // GameControl properties
         this.path = path;
         this.levelClasses = levelClasses;
@@ -137,7 +137,7 @@ class GameControl {
     // Helper method to hide the current canvas state in the game container
     hideCanvasState() {
         const gameContainer = document.getElementById('gameContainer');
-        const canvasElements = gameContainer.querySelectorAll('canvas');
+        const canvasElements = gameContainer.querySelectorAll('canvas');4
         canvasElements.forEach(canvas => {
             if (canvas.id !== 'gameCanvas') {
                 canvas.style.display = 'none';

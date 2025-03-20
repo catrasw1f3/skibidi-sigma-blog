@@ -4,7 +4,7 @@ import Player from './Player.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
 
-class GameLevelWater {
+class GameLevelLondon {
   /**
    * Properties and methods to define a game level
    * @param {*} gameEnv - The active game environment
@@ -16,11 +16,11 @@ class GameLevelWater {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_water = path + "/images/gamify/deepseadungeon.jpeg";
-    const image_data_water = {
-        id: 'Water',
-        src: image_src_water,
-        pixels: {height: 597, width: 340}
+    const image_src_london = path + "/images/gamify/london_bg.png";
+    const image_data_london = {
+        id: 'London',
+        src: image_src_london,
+        pixels: {height: 225, width: 400}
     };
 
     // Player Data for Octopus
@@ -28,7 +28,7 @@ class GameLevelWater {
     const OCTOPUS_SCALE_FACTOR = 5;
     const sprite_data_octopus = {
         id: 'Octopus',
-        greeting: "Hi I am Octopus, the water wanderer. I am looking for wisdome and adventure!",
+        greeting: "Hi I am Octopus, the wanderer. I am looking for wisdome and adventure!",
         src: sprite_src_octopus,
         SCALE_FACTOR: OCTOPUS_SCALE_FACTOR,
         STEP_FACTOR: 1000,
@@ -86,11 +86,11 @@ class GameLevelWater {
 
     // List of classes and supporting definitions to create the game level
     this.classes = [
-      { class: Background, data: image_data_water },
+      { class: Background, data: image_data_london },
       { class: Player, data: sprite_data_octopus },
       { class: Npc, data: sprite_data_nomad },
     ];
   }
 }
 
-export default GameLevelWater;
+export default GameLevelLondon;

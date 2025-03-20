@@ -14,12 +14,12 @@ class GameLevelEgypt {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_egypt = path + "/images/gamify/ancientegyptbackground.png"; // be sure to include the path
+    const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.png"; // be sure to include the path
     const image_data_egypt = {
         name: 'Ancient Egypt',
         greeting: "Oh no! Somehow, we travelled back to Ancient Egypt! Find your way out and travel back to your original timeline!",
         src: image_src_egypt,
-        pixels: {height: 580, width: 1038}
+        pixels: {height: 225, width: 400}
     };
 
 
@@ -188,7 +188,7 @@ class GameLevelEgypt {
         SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
         ANIMATION_RATE: 50,
         pixels: {height: 120, width: 63},
-        INIT_POSITION: { x: (width / 2), y: (height / 2)},
+        INIT_POSITION: { x: ((width / 2) + 100), y: ((height / 2) - 100)},
         orientation: {rows: 1, columns: 1 },
         down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -218,7 +218,7 @@ class GameLevelEgypt {
         SCALE_FACTOR: 5,
         ANIMATION_RATE: 100,
         pixels: { width: 63, height: 120 },
-        INIT_POSITION: { x: ((width * 1 / 4) + 100), y: ((height * 3 / 4) - 20) },
+        INIT_POSITION: { x: ((width * 1 / 4) + 130), y: ((height * 3 / 4) - 100) },
         orientation: { rows: 1, columns: 1 },
         down: { row: 0, start: 0, columns: 1 },
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
