@@ -181,28 +181,43 @@ class GameLevelEgypt {
     const sprite_src_pyramidguard = path + "/images/gamify/pyramid_guard.png"; // be sure to include the path
     const sprite_greet_pyramidguard = "I am the guardian of the pyramid. Wait--you don't look like you're from around here. I'll have to quiz you! Press 'E' to start the quiz.";
     const sprite_data_pyramidguard = {
-        id: 'Pyramid Guard',
-        greeting: sprite_greet_pyramidguard,
-        src: sprite_src_pyramidguard,
-        STEP_FACTOR: 1000,
-        SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
-        ANIMATION_RATE: 50,
-        pixels: {height: 120, width: 63},
-        INIT_POSITION: { x: ((width / 2) + 100), y: ((height / 2) - 100)},
-        orientation: {rows: 1, columns: 1 },
-        down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
-        hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        quiz: quizData,
-        reaction: function() {
+      id: 'Pyramid Guard',
+      greeting: sprite_greet_pyramidguard,
+      src: sprite_src_pyramidguard,
+      STEP_FACTOR: 1000,
+      SCALE_FACTOR: 5,
+      ANIMATION_RATE: 100,
+      pixels: { height: 120, width: 63 },
+      INIT_POSITION: { x: ((width / 2) + 100), y: ((height / 2) - 100) },
+      orientation: { rows: 1, columns: 1 },
+      down: { row: 0, start: 0, columns: 1 },
+      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+      quiz: quizData,
+      reaction: function () {
           alert(sprite_greet_pyramidguard);
-        },
-        interact: function() {
+      },
+      interact: function () {
           shuffleQuestionsAndAnswers(sprite_data_pyramidguard.quiz);
           let quiz = new Quiz(); // Create a new Quiz instance
           quiz.initialize();
           quiz.openPanel(sprite_data_pyramidguard.quiz);
-        }
-    };
+      },
+      moveHorizontally: function () {
+          let direction = 1; // 1 for right, -1 for left
+          const step = 4; // Distance to move per interval
+          const maxDistance = 70; // Maximum distance to move left or right
+          let initialX = this.INIT_POSITION.x;
+  
+          setInterval(() => {
+              this.INIT_POSITION.x += direction * step;
+  
+              // Reverse direction if the guard reaches the max distance
+              if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+                  direction *= -1;
+              }
+          }, this.ANIMATION_RATE);
+      }
+  };
 
       const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png";
       const sprite_greet_tombguard = [
@@ -222,12 +237,30 @@ class GameLevelEgypt {
         orientation: { rows: 1, columns: 1 },
         down: { row: 0, start: 0, columns: 1 },
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-
         reaction: () => {
-          const randomGreeting = sprite_data_tombguard.greetings[Math.floor(Math.random() * sprite_data_tombguard.greetings.length)];
-          alert(randomGreeting);
+            const randomGreeting = sprite_data_tombguard.greetings[Math.floor(Math.random() * sprite_data_tombguard.greetings.length)];
+            alert(randomGreeting);
+        },
+        moveHorizontally: function () {
+            let direction = 1; // 1 for right, -1 for left
+            const step = 4; // Distance to move per interval
+            const maxDistance = 80; // Maximum distance to move left or right
+            let initialX = this.INIT_POSITION.x;
+    
+            setInterval(() => {
+                this.INIT_POSITION.x += direction * step;
+    
+                // Reverse direction if the guard reaches the max distance
+                if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+                    direction *= -1;
+                }
+            }, this.ANIMATION_RATE);
         }
-      };
+    };
+    
+    // Start the horizontal movement for both guards
+    sprite_data_pyramidguard.moveHorizontally();
+    sprite_data_tombguard.moveHorizontally();
   
     
         // List of objects defnitions for this level
