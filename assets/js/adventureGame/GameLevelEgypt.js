@@ -204,7 +204,7 @@ class GameLevelEgypt {
       },
       moveHorizontally: function () {
         let direction = -1; // 1 for right, -1 for left
-        const step = 4; // Distance to move per interval
+        const step = 3; // Distance to move per interval
         const maxDistance = 80; // Maximum distance to move left or right
         let initialX = this.INIT_POSITION.x;
     
@@ -250,7 +250,7 @@ class GameLevelEgypt {
         moveHorizontally: function () {
           let direction = -1; // 1 for right, -1 for left
           const step = 4; // Distance to move per interval
-          const maxDistance = 80; // Maximum distance to move left or right
+          const maxDistance = 100; // Maximum distance to move left or right
           let initialX = this.INIT_POSITION.x;
       
           setInterval(() => {
