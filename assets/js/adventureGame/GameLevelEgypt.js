@@ -203,20 +203,26 @@ class GameLevelEgypt {
           quiz.openPanel(sprite_data_pyramidguard.quiz);
       },
       moveHorizontally: function () {
-          let direction = 1; // 1 for right, -1 for left
-          const step = 4; // Distance to move per interval
-          const maxDistance = 70; // Maximum distance to move left or right
-          let initialX = this.INIT_POSITION.x;
-  
-          setInterval(() => {
-              this.INIT_POSITION.x += direction * step;
-  
-              // Reverse direction if the guard reaches the max distance
-              if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
-                  direction *= -1;
-              }
-          }, this.ANIMATION_RATE);
-      }
+        let direction = -1; // 1 for right, -1 for left
+        const step = 4; // Distance to move per interval
+        const maxDistance = 80; // Maximum distance to move left or right
+        let initialX = this.INIT_POSITION.x;
+    
+        setInterval(() => {
+            this.INIT_POSITION.x += direction * step;
+    
+            // Reverse direction if the guard reaches the max distance
+            if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+                direction *= -1;
+    
+                // Flip the sprite horizontally based on direction
+                const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+                if (spriteElement) {
+                    spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
+                }
+            }
+        }, this.ANIMATION_RATE);
+    }
   };
 
       const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png";
@@ -242,20 +248,26 @@ class GameLevelEgypt {
             alert(randomGreeting);
         },
         moveHorizontally: function () {
-            let direction = 1; // 1 for right, -1 for left
-            const step = 4; // Distance to move per interval
-            const maxDistance = 80; // Maximum distance to move left or right
-            let initialX = this.INIT_POSITION.x;
-    
-            setInterval(() => {
-                this.INIT_POSITION.x += direction * step;
-    
-                // Reverse direction if the guard reaches the max distance
-                if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
-                    direction *= -1;
-                }
-            }, this.ANIMATION_RATE);
-        }
+          let direction = -1; // 1 for right, -1 for left
+          const step = 4; // Distance to move per interval
+          const maxDistance = 80; // Maximum distance to move left or right
+          let initialX = this.INIT_POSITION.x;
+      
+          setInterval(() => {
+              this.INIT_POSITION.x += direction * step;
+      
+              // Reverse direction if the guard reaches the max distance
+              if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+                  direction *= -1;
+      
+                  // Flip the sprite horizontally based on direction
+                  const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+                  if (spriteElement) {
+                      spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
+                  }
+              }
+          }, this.ANIMATION_RATE);
+      }
     };
     
     // Start the horizontal movement for both guards

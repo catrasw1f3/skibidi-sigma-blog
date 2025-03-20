@@ -191,33 +191,65 @@ In the initial development of this game, it was intended to have some default be
 3. Idle animations were lost along the way of development and should be revived.
 4. Instead of idle being no movement, it seems like the snowspeeder or squid should be moving slightly according to their game environment.
 
+### Hack #1:
+I have not implemented this hack into my code. If i did, I would use methods to draw and fill two different squares for each player. They would be controlled by the WASD keys and the arrow keys.
+
+### What I Did For Hack #2:
+Hack #2 was a simple fix- I changed the initial position of the snowspeeder from down to right. This means that instead of having this:
+```js
+        down: {row: 0, start: 0, columns: 1, rotate: -Math.PI/2 },
+        downRight: {row: 0, start: 0, columns: 1, rotate: -3*Math.PI/4 },
+        downLeft: {row: 0, start: 0, columns: 1, rotate: -Math.PI/4 },
+        left: {row: 0, start: 0, columns: 1 },
+        right: {row: 0, start: 0, columns: 1, rotate: Math.PI },
+        up: {row: 0, start: 0, columns: 1, rotate: Math.PI/2 },
+        upLeft: {row: 0, start: 0, columns: 1, rotate: Math.PI/4 },
+        upRight: {row: 0, start: 0, columns: 1, rotate: 3*Math.PI/4 },
+```
+I have this:
+```js
+        right: {row: 0, start: 0, columns: 1, rotate: Math.PI },
+        down: {row: 0, start: 0, columns: 1, rotate: -Math.PI/2 },
+        downRight: {row: 0, start: 0, columns: 1, rotate: -3*Math.PI/4 },
+        downLeft: {row: 0, start: 0, columns: 1, rotate: -Math.PI/4 },
+        left: {row: 0, start: 0, columns: 1 },
+        up: {row: 0, start: 0, columns: 1, rotate: Math.PI/2 },
+        upLeft: {row: 0, start: 0, columns: 1, rotate: Math.PI/4 },
+        upRight: {row: 0, start: 0, columns: 1, rotate: 3*Math.PI/4 },
+```
+### Hack #3
+I have not implemented this hack into my code. If I did, I would probably create a function that allows for an idle animation to play when keys are not being pressed.
+
+
 ### What I Did For Hack #4:
 
 My version of hack #4 is a bit different. Instead of making the snowspeeder or squid be moving constantly, I wanted to create a variation of this hack that would better fit into the theme of my game. In my game, there are two different guards. I thought it'd be a good idea to make the both of them constantly move from side to side to better fit their role in the game. Here is the code I used:
 
 ```js
 moveHorizontally: function () {
-            let direction = 1; // 1 for right, -1 for left
-            const step = 4; // Distance to move per interval--the speed that the sprite moves at
-            const maxDistance = 80; // Maximum distance to move left or right
-            let initialX = this.INIT_POSITION.x;
-    
-            setInterval(() => {
-                this.INIT_POSITION.x += direction * step;
-    
-                // Reverse direction if the guard reaches the max distance
-                if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
-                    direction *= -1;
-                }
-            }, this.ANIMATION_RATE);
+    let direction = 1; // 1 for right, -1 for left
+    const step = 4; // Distance to move per interval
+    const maxDistance = 80; // Maximum distance to move left or right
+    let initialX = this.INIT_POSITION.x;
+
+    setInterval(() => {
+        this.INIT_POSITION.x += direction * step;
+
+        // Reverse direction if the guard reaches the max distance
+        if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+            direction *= -1;
+
+            // Flip the sprite horizontally based on direction
+            const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+            if (spriteElement) {
+                spriteElement.style.transform = direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
+            }
         }
-    
-    // Start the horizontal movement for both guards
-    sprite_data_pyramidguard.moveHorizontally();
-    sprite_data_tombguard.moveHorizontally();
+    }, this.ANIMATION_RATE);
+}
 ```
 
-Basically, the if-statement at the end checks to see that if the current initial x-axis position of the sprite is larger than the initialX + maxDistance, or alternatively, checks to see if the current initial x-axis position is less than the initialX - maxDistance. If either of those are true, then it multiplies the value for the direction by -1. By using -1 as the multiplier, we switch the direction the sprite is moving from right to left, or vice versa. 
+Basically, the if-statement at the end checks to see that if the current initial x-axis position of the sprite is larger than the initialX + maxDistance, or alternatively, checks to see if the current initial x-axis position is less than the initialX - maxDistance. If either of those are true, then it multiplies the value for the direction by -1. By using -1 as the multiplier, we switch the direction the sprite is moving from right to left, or vice versa. The second if-statement inverts the image horizontally according to the direction that the sprite is moving. This way, it doesn't look like the guards are moonwalking half the time.
 
 ## College and Game Terms
 
