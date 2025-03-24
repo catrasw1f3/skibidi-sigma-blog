@@ -23,37 +23,37 @@ class GameLevelLondon {
         pixels: {height: 225, width: 400}
     };
 
-    // Player Data for Octopus
-    const sprite_src_octopus = path + "/images/gamify/octopus.png"; // be sure to include the path
-    const OCTOPUS_SCALE_FACTOR = 5;
-    const sprite_data_octopus = {
-        id: 'Octopus',
-        greeting: "Hi I am Octopus, the wanderer. I am looking for wisdome and adventure!",
-        src: sprite_src_octopus,
-        SCALE_FACTOR: OCTOPUS_SCALE_FACTOR,
-        STEP_FACTOR: 1000,
+    // Player data for Tourist
+    const sprite_src_tourist = path + "/images/gamify/tourist.png"; // be sure to include the path
+    const TOURIST_SCALE_FACTOR = 5;
+    const sprite_data_tourist = {
+        id: 'Tourist',
+        greeting: "I'm you! And I'm definitely not in the right era...",
+        src: sprite_src_tourist,
+        SCALE_FACTOR: TOURIST_SCALE_FACTOR,
+        STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: 0, y: height - (height/OCTOPUS_SCALE_FACTOR) }, 
-        pixels: {height: 250, width: 167},
-        orientation: {rows: 3, columns: 2 },
-        down: {row: 0, start: 0, columns: 2 },
-        downLeft: {row: 0, start: 0, columns: 2, mirror: true, rotate: Math.Pi/16 }, // mirror is used to flip the sprite
-        downRight: {row: 0, start: 0, columns: 2, rotate: -Math.Pi/16 },
-        left: {row: 1, start: 0, columns: 2, mirror: true }, // mirror is used to flip the sprite
-        right: {row: 1, start: 0, columns: 2 },
-        up: {row: 0, start: 0, columns: 2},
-        upLeft: {row: 1, start: 0, columns: 2, mirror: true, rotate: -Math.Pi/16 }, // mirror is used to flip the sprite
-        upRight: {row: 1, start: 0, columns: 2, rotate: Math.Pi/16 },
+        INIT_POSITION: { x: 0, y: height - (height/TOURIST_SCALE_FACTOR) }, 
+        pixels: {height: 320, width: 120},
+        orientation: {rows: 4, columns: 3 },
+        down: {row: 0, start: 0, columns: 3 },
+        downRight: {row: 1, start: 0, columns: 3, rotate: Math.PI/16 },
+        downLeft: {row: 2, start: 0, columns: 3, rotate: -Math.PI/16 },
+        left: {row: 2, start: 0, columns: 3 },
+        right: {row: 1, start: 0, columns: 3 },
+        up: {row: 3, start: 0, columns: 3 },
+        upLeft: {row: 2, start: 0, columns: 3, rotate: Math.PI/16 },
+        upRight: {row: 1, start: 0, columns: 3, rotate: -Math.PI/16 },
         hitbox: { widthPercentage: 0.45, heightPercentage: 0.2 },
         keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
     };
 
-    // NPC Data for Byte Nomad (Smaller Version)
-    const sprite_src_nomad = path + "/images/gamify/animwizard.png"; // be sure to include the path
-    const sprite_data_nomad = {
-        id: 'JavaWorld',
+    // NPC Data for palace guard
+    const sprite_src_palaceguard = path + "/images/gamify/palace_guard.png"; // be sure to include the path
+    const sprite_data_palaceguard = {
+        id: 'PalaceGuard',
         greeting: "Hi I am Java Portal.  Leave this world and go on a Java adventure!",
-        src: sprite_src_nomad,
+        src: sprite_src_palaceguard,
         SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
         ANIMATION_RATE: 100,
         pixels: {height: 307, width: 813},
@@ -88,7 +88,7 @@ class GameLevelLondon {
     this.classes = [
       { class: Background, data: image_data_london },
       { class: Player, data: sprite_data_octopus },
-      { class: Npc, data: sprite_data_nomad },
+      { class: Npc, data: sprite_data_palaceguard },
     ];
   }
 }
