@@ -44,19 +44,23 @@ class GameLevelStarWars {
     };
 
     // NPC Data for Turret Anti-Air
-    const sprite_src_turret = "/images/gamify/turret_aa.png"; // be sure to include the path
-    const TURRET_SCALE_FACTOR = 3;
-    const sprite_data_turret = {
-      id: 'Turret-Anti-Air',
-      greeting: "I am the Anti-Air Turret. I am here to take down the snowspeeder!",
-      src: sprite_src_turret,
-      SCALE_FACTOR: TURRET_SCALE_FACTOR,  // Adjust this based on your scaling needs
-      ANIMATION_RATE: 100,
-      pixels: {width: 562, height: 444},
-      INIT_POSITION: { x: width - (height/TURRET_SCALE_FACTOR), y: height - .82*(height/TURRET_SCALE_FACTOR) }, 
-      orientation: {rows: 1, columns: 1 },
-      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
-      hitbox: { widthPercentage: 0.1, heightPercentage: 0.1 },
+    const sprite_src_tombguard = "/images/gamify/tomb_guard.png";
+      const sprite_greet_tombguard = "Sorry, can't let you out."
+      const TOMB_GUARD_SCALE_FACTOR = 5;
+      const sprite_data_tombguard = {
+        id: 'Tomb Guard',
+        greetings: sprite_greet_tombguard,
+        src: sprite_src_tombguard,
+        SCALE_FACTOR: TOMB_GUARD_SCALE_FACTOR,
+        ANIMATION_RATE: 100,
+        pixels: { width: 63, height: 120 },
+        INIT_POSITION: { x: width - (height/TOMB_GUARD_SCALE_FACTOR), y: height - (height/TOMB_GUARD_SCALE_FACTOR) - 50 },
+        orientation: { rows: 1, columns: 1 },
+        down: { row: 0, start: 0, columns: 1 },
+        hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+        reaction: function() {
+          alert(sprite_greet_tombguard)
+        }
     };
 
     // Laser data, temporary sprite for testing
@@ -102,7 +106,7 @@ class GameLevelStarWars {
     this.classes = [
       { class: Background, data: image__data_bg },
       { class: Player, data: sprite_data_tourist },
-      { class: Npc, data: sprite_data_turret },
+      { class: Npc, data: sprite_data_tombguard },
       { class: Projectile, data: sprite_data_laser1 },
       { class: Projectile, data: sprite_data_laser2 },
     ];
