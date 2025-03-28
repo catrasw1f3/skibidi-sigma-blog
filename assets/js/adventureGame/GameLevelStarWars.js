@@ -40,10 +40,13 @@ class GameLevelStarWars {
         upLeft: {row: 2, start: 0, columns: 3, rotate: Math.PI/16 },
         upRight: {row: 1, start: 0, columns: 3, rotate: -Math.PI/16 },
         hitbox: { widthPercentage: 0.45, heightPercentage: 0.2 },
-        keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
+        keypress: { up: 87, left: 65, down: 83, right: 68 }, // W, A, S, D
+        reaction: function() {
+          alert("You just got hit!")
+        }
     };
 
-    // NPC Data for Turret Anti-Air
+    // NPC Data for Tomb Guard
     const sprite_src_tombguard = "/images/gamify/tomb_guard.png";
       const sprite_greet_tombguard = "Sorry, can't let you out."
       const TOMB_GUARD_SCALE_FACTOR = 5;
@@ -63,13 +66,13 @@ class GameLevelStarWars {
         }
     };
 
-    // Laser data, temporary sprite for testing
-    const sprite_src_laser = "/images/gamify/laser_bolt.png"; // be sure to include the path
-    const sprite_data_laser1 = {
-        id: 'AT-AT-Laser-1',
+    // Arrow data, temporary sprite for testing
+    const sprite_src_arrow = "/images/gamify/arrow.png"; // be sure to include the path
+    const sprite_data_arrow1 = {
+        id: 'Arrow1',
         greeting: "Simulate explosive action!",
         // define image/sprite data
-        src: sprite_src_laser,
+        src: sprite_src_arrow,
         pixels: {height: 500, width: 500}, // height and width of the image
         orientation: {rows: 1, columns: 1 }, // normalized rows and columns in the sprite
         // define size, position, adjustments for hitbox
@@ -83,12 +86,12 @@ class GameLevelStarWars {
         down: {row: 0, start: 0, columns: 1, spin: 4},  // down is default
      };
 
-     // Laser data, temporary sprite for testing
-    const sprite_data_laser2 = {
-        id: 'AT-AT-Laser-2',
+     // Arrow data, temporary sprite for testing
+    const sprite_data_arrow2 = {
+        id: 'Arrow',
         greeting: "Simulate explosive action!",
         // define image/sprite data
-        src: sprite_src_laser,
+        src: sprite_src_arrow,
         pixels: {height: 500, width: 500}, // height and width of the image
         orientation: {rows: 1, columns: 1 }, // normalized rows and columns in the sprite
         // define size, position, adjustments for hitbox
@@ -107,8 +110,8 @@ class GameLevelStarWars {
       { class: Background, data: image__data_bg },
       { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_tombguard },
-      { class: Projectile, data: sprite_data_laser1 },
-      { class: Projectile, data: sprite_data_laser2 },
+      { class: Projectile, data: sprite_data_arrow1 },
+      { class: Projectile, data: sprite_data_arrow2 },
     ];
   }
 }
