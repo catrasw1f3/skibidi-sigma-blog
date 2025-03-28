@@ -269,6 +269,7 @@ class GameLevelEgypt {
           }, this.ANIMATION_RATE);
       },
       interact: function() {
+        console.log("interacted with tomb guard ishfjhersfiqwe")
         // Set a primary game reference from the game environment
         let primaryGame = gameEnv.gameControl;
         // Define the game in game level
