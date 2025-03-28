@@ -18,32 +18,29 @@ class GameLevelStarWars {
         pixels: {height: 570, width: 1025}
     };
 
-    // Player data for snowspeeder
-    const sprite_src_snowspeeder = "/images/gamify/snowspeeder_sprite2.png"; // be sure to include the path
-    const SNOWSPEEDER_SCALE_FACTOR = 6;
-    const sprite_data_snowspeeder = {
-        id: 'Snowspeeder',
-        greeting: "Hi I am snowspeeder, the desert wanderer. I am trying to take donwn the empire's AT-ATs!",
-        src: sprite_src_snowspeeder,
-        SCALE_FACTOR: SNOWSPEEDER_SCALE_FACTOR,
-        STEP_FACTOR: 1000,
+    // Player data for Tourist
+    const sprite_src_tourist = "/images/gamify/tourist.png"; // be sure to include the path
+    const TOURIST_SCALE_FACTOR = 5;
+    const sprite_data_tourist = {
+        id: 'Tourist',
+        greeting: "I'm you! And I'm definitely not in the right era...",
+        src: sprite_src_tourist,
+        SCALE_FACTOR: TOURIST_SCALE_FACTOR,
+        STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: 0, y: 0 }, 
-        pixels: {height: 293, width: 358},
-        orientation: {rows: 1, columns: 1 },
-        right: {row: 0, start: 0, columns: 1, rotate: Math.PI },
-        down: {row: 0, start: 0, columns: 1, rotate: -Math.PI/2 },
-        downRight: {row: 0, start: 0, columns: 1, rotate: -3*Math.PI/4 },
-        downLeft: {row: 0, start: 0, columns: 1, rotate: -Math.PI/4 },
-        left: {row: 0, start: 0, columns: 1 },
-        up: {row: 0, start: 0, columns: 1, rotate: Math.PI/2 },
-        upLeft: {row: 0, start: 0, columns: 1, rotate: Math.PI/4 },
-        upRight: {row: 0, start: 0, columns: 1, rotate: 3*Math.PI/4 },
+        INIT_POSITION: { x: 0, y: height - (height/TOURIST_SCALE_FACTOR) }, 
+        pixels: {height: 320, width: 120},
+        orientation: {rows: 4, columns: 3 },
+        down: {row: 0, start: 0, columns: 3 },
+        downRight: {row: 1, start: 0, columns: 3, rotate: Math.PI/16 },
+        downLeft: {row: 2, start: 0, columns: 3, rotate: -Math.PI/16 },
+        left: {row: 2, start: 0, columns: 3 },
+        right: {row: 1, start: 0, columns: 3 },
+        up: {row: 3, start: 0, columns: 3 },
+        upLeft: {row: 2, start: 0, columns: 3, rotate: Math.PI/16 },
+        upRight: {row: 1, start: 0, columns: 3, rotate: -Math.PI/16 },
         hitbox: { widthPercentage: 0.45, heightPercentage: 0.2 },
-        keypress: { up: 87, left: 65, down: 83, right: 68 }, // W, A, S, D
-        reaction: function() {
-          alert("We just got hit by a projectile!");
-        }
+        keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
     };
 
     // NPC Data for Turret Anti-Air
@@ -104,7 +101,7 @@ class GameLevelStarWars {
     // List of objects definitions for this level
     this.classes = [
       { class: Background, data: image__data_bg },
-      { class: Player, data: sprite_data_snowspeeder },
+      { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_turret },
       { class: Projectile, data: sprite_data_laser1 },
       { class: Projectile, data: sprite_data_laser2 },
