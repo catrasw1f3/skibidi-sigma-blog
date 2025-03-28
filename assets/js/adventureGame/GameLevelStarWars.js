@@ -11,12 +11,18 @@ class GameLevelStarWars {
     let path = gameEnv.path;
 
     // Background data
-    const image_src_bg = "/images/gamify/tomb.png"; // be sure to include the path
-    const image__data_bg = {
+    const image_src_bg = "/images/gamify/tomb.png"; // Default background
+    const image_src_bg2 = "/images/gamify/tomb2.png"; // Alternate background
+    const image_data_bg = {
         id: 'Background',
         src: image_src_bg,
-        pixels: {height: 570, width: 1025}
+        pixels: { height: 570, width: 1025 }
     };
+    const image_data_bg2 = {
+      id: 'Background2',
+      src: image_src_bg2,
+      pixels: { height: 570, width: 1025 }
+  };
 
     // Player data for Tourist
     const sprite_src_tourist = "/images/gamify/tourist.png"; // be sure to include the path
@@ -123,13 +129,32 @@ class GameLevelStarWars {
 
     // List of objects definitions for this level
     this.classes = [
-      { class: Background, data: image__data_bg },
+      { class: Background, data: image_data_bg },
+      { class: Background, data: image_data_bg2 },
       { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_tombguard },
       { class: Npc, data: sprite_data_timemachine },
       { class: Projectile, data: sprite_data_arrow1 },
       { class: Projectile, data: sprite_data_arrow2 },
     ];
+
+    // Add event listener for the 'E' key to change the background
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'E' || event.key === 'e') {
+        this.changeBackground(image_data_bg, image_data_bg2);
+      }
+    });
+  }
+
+  /**
+   * Change the background of the level
+   * @param {Object} backgroundData - The current background data object
+   * @param {String} newSrc - The new background image source
+   */
+  changeBackground(backgroundData, newSrc) {
+    console.log("Changing background...");
+    backgroundData.src = newSrc; // Update the background source
+    this.gameEnv.redraw(); // Trigger a redraw of the game environment
   }
 }
 
