@@ -66,6 +66,22 @@ class GameLevelStarWars {
         }
     };
 
+    // Time machine data
+    const sprite_src_timemachine = "/images/gamify/timemachine.png"; // be sure to include the path
+    const sprite_greet_timemachine = "You've made it to the time machine! Will you be able to get back home?";
+    const sprite_data_timemachine = {
+      id: 'Rat Guide',
+      greeting: sprite_greet_timemachine,
+      src: sprite_src_timemachine,
+      SCALE_FACTOR: 3,  // Adjust this based on your scaling needs
+      ANIMATION_RATE: 100,
+      pixels: {width: 150, height: 194},
+      INIT_POSITION: { x: (width / 2) - 70, y: (height / 2) - 240 }, // Adjusted position
+      orientation: {rows: 1, columns: 1 },
+      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
+      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+    };
+
     // Arrow data, temporary sprite for testing
     const sprite_src_arrow = "/images/gamify/arrow.png"; // be sure to include the path
     const sprite_data_arrow1 = {
@@ -110,6 +126,7 @@ class GameLevelStarWars {
       { class: Background, data: image__data_bg },
       { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_tombguard },
+      { class: Npc, data: sprite_data_timemachine },
       { class: Projectile, data: sprite_data_arrow1 },
       { class: Projectile, data: sprite_data_arrow2 },
     ];
