@@ -2,6 +2,7 @@
 import Background from './Background.js';
 import PlayerOne from './PlayerOne.js';
 import PlayerTwo from './PlayerTwo.js';
+import Item from './Item.js';
 
 // Minimal Definition
 class GameLevelSquares {
@@ -49,11 +50,49 @@ class GameLevelSquares {
         keypress: { up: 73, left: 74, down: 75, right: 76 } // I, J, K, L
     };
 
+    // Generate random items
+    const items = [];
+    for (let i = 0; i < 5; i++) {
+        const itemData = {
+            id: `Item-${i}`,
+            position: {
+                x: Math.random() * (width - 30), // Random x position
+                y: Math.random() * (height - 30), // Random y position
+            },
+            size: { width: 30, height: 30 },
+            color: 'yellow',
+        };
+        items.push(new Item(itemData, gameEnv));
+    }
+
     this.classes = [      
       { class: Background, data: background_data },
       { class: PlayerOne, data: player_one_data },
-      { class: PlayerTwo, data: player_two_data }
+      { class: PlayerTwo, data: player_two_data },
+      ...items.map(item => ({ class: Item, data: item })),
     ];
+
+    // Add items to the game environment
+    gameEnv.gameObjects.push(...items);
+  }
+
+  /**
+   * Update the game level.
+   */
+  update() {
+    const playerOne = this.classes.find(obj => obj.data.id === 'PlayerOne').instance;
+    const playerTwo = this.classes.find(obj => obj.data.id === 'PlayerTwo').instance;
+
+    // Check for item collisions
+    this.gameEnv.gameObjects.forEach(gameObject => {
+        if (gameObject instanceof Item) {
+            if (gameObject.checkCollision(playerOne)) {
+                gameObject.pickUp();
+            } else if (gameObject.checkCollision(playerTwo)) {
+                gameObject.pickUp();
+            }
+        }
+    });
   }
 
   destroy() {
