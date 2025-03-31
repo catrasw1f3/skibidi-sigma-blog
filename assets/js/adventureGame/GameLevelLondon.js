@@ -87,7 +87,7 @@ class GameLevelLondon {
     // List of classes and supporting definitions to create the game level
     this.classes = [
       { class: Background, data: image_data_london },
-      { class: Player, data: sprite_data_octopus },
+      { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_palaceguard },
     ];
   }
