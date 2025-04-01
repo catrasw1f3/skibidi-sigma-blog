@@ -5,6 +5,7 @@ import Npc from './Npc.js';
 import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
+import Enemy from './Enemy.js';
 
 class GameLevelEgypt {
   constructor(gameEnv) {
@@ -299,7 +300,7 @@ class GameLevelEgypt {
           { class: Player, data: sprite_data_tourist },
           { class: Npc, data: sprite_data_pyramidguard },
           { class: Npc, data: sprite_data_tombguard },
-          { class: Npc, data: sprite_data_guide },
+          { class: Enemy, data: sprite_data_guide },
         ];
     
         

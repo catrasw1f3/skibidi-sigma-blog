@@ -5,28 +5,20 @@ import Player from './Player.js';
 class Enemy extends Character {
     constructor(data = null, gameEnv = null) {
         super(data, gameEnv);
-        this.playerFound = false;
-        this.playerDestroyed = false;     
+        this.playerDestroyed = false; // Tracks if the player has been "killed"
     }
 
     /**
-     * Override the update method to draw the Enemy.
+     * Override the update method to handle collision detection.
      */
     update() {
         // Update begins by drawing the object
         this.draw();
 
-        if (!this.playerDestroyed) {
-            this.checkProximityToPlayer();
-            if(this.collisionChecks()){
-                this.handleCollisionEvent();
-            }
-
+        // Check for collision with the player
+        if (!this.playerDestroyed && this.collisionChecks()) {
+            this.handleCollisionEvent();
         }
-
-        // Update or change position according to velocity events
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
 
         // Ensure the object stays within the canvas boundaries
         this.stayWithinCanvas();
@@ -59,40 +51,35 @@ class Enemy extends Character {
     }
 
     /**
-     * Check if Player is within a certain distance of the Enemy.
-     * if so return True else False.
-     * @returns {boolean} True if Player is within a certain distance of the Enemy, False otherwise.
+     * Check if the Enemy collides with the Player.
+     * @returns {boolean} True if the Enemy collides with the Player, False otherwise.
      */
     collisionChecks() {
-        for (var gameObj of this.gameEnv.gameObjects) {
-            if (gameObj.canvas && this != gameObj) {
+        for (const gameObj of this.gameEnv.gameObjects) {
+            if (gameObj instanceof Player) {
                 this.isCollision(gameObj);
-                if (this.collisionData.hit && this.collisionData.touchPoints.other.id == 'Chill Guy') {
-                    return true;                    
+                if (this.collisionData.hit) {
+                    return true;
                 }
             }
         }
-        return false
+        return false;
     }
 
     /**
-     * Handle collision event.
-     * This method must be implemented by subclasses.
-     * @abstract
+     * Handle collision with the Player.
      */
     handleCollisionEvent() {
-        // To be implemented by subclasses
-        throw new Error("Method 'collisionAction()' must be implemented");
+        console.log("Player collided with the Enemy. Player is dead.");
+        this.playerDestroyed = true; // Mark the player as "dead"
+        this.gameEnv.gameControl.restartLevel(); // Restart the level
     }
 
     /**
-     * check Proximity of the npc with player.
-     * This method must be implemented by subclasses.
-     * @abstract
+     * Proximity check is no longer needed, so leave it unimplemented.
      */
     checkProximityToPlayer() {
-        // To be implemented by subclasses
-        throw new Error("Method 'jump()' must be implemented.");
+        // No longer needed
     }
 
     /**

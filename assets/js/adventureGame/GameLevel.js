@@ -10,10 +10,10 @@ class GameLevel {
 
     create(GameLevelClass) {
         this.continue = true;
-        this.gameEnv.create();
+this.gameEnv.create();
         this.gameLevel = new GameLevelClass(this.gameEnv);
         this.gameObjectClasses = this.gameLevel.classes;
-        for (let gameObjectClass of this.gameObjectClasses) {
+for (let gameObjectClass of this.gameObjectClasses) {
             if (!gameObjectClass.data) gameObjectClass.data = {};
             let gameObject = new gameObjectClass.class(gameObjectClass.data, this.gameEnv);
             this.gameEnv.gameObjects.push(gameObject);
