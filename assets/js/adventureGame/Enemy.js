@@ -1,5 +1,4 @@
 import Character from './Character.js';
-import GameEnv from './GameEnv.js';
 import Player from './Player.js';
 
 class Enemy extends Character {

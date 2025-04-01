@@ -66,6 +66,9 @@ class GameLevelEgypt {
       orientation: {rows: 1, columns: 1 },
       down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+      reaction: function () {
+        alert("u got rabies lolz u dieded XD");
+    },
     };
 
     // Custom alert function to handle sequential notifications
@@ -80,20 +83,21 @@ class GameLevelEgypt {
     }, 1000); // Display the first notification 1 second after the game starts
 
     // Function to handle player interaction and display Rat Guide notifications
-    function handlePlayerInteraction(event) {
-      const keys = [87, 65, 83, 68]; // W, A, S, D key codes
-      if (keys.includes(event.keyCode)) {
-        setTimeout(() => {
-          customAlert(sprite_data_guide.greeting_intro, () => {
-            customAlert(sprite_data_guide.greeting_info);
-          });
-        }, 500); // Display the Rat Guide notifications 0.5 seconds after interaction
-        window.removeEventListener('keydown', handlePlayerInteraction); // Remove the event listener after the first interaction
-      }
-    }
+    //function handlePlayerInteraction(event) {
+      //const keys = [87, 65, 83, 68]; // W, A, S, D key codes
+      //if (keys.includes(event.keyCode)) {
+        //setTimeout(() => {
+          //customAlert(sprite_data_guide.greeting_intro, () => {
+            //customAlert(sprite_data_guide.greeting_info);
+          //});
+        //}, 500); // Display the Rat Guide notifications 0.5 seconds after interaction
+        //window.removeEventListener('keydown', handlePlayerInteraction); // Remove the event listener after the first interaction
+      //}
+    //}
 
     // Add event listener for player interaction
-    window.addEventListener('keydown', handlePlayerInteraction);
+    //window.addEventListener('keydown', handlePlayerInteraction);
+    
     // Log the guide's data and position
     console.log("Rat Guide Data:", sprite_data_guide);
     console.log("Rat Guide Position:", sprite_data_guide.INIT_POSITION.x, sprite_data_guide.INIT_POSITION.y);
