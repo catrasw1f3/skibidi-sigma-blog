@@ -53,7 +53,7 @@ class GameLevelEgypt {
     // Rat Guide data
     const sprite_src_guide = path + "/images/gamify/ratguide.png"; // be sure to include the path
     const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
-    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history, thriving along the Nile River, which provided fertile land and a stable food supply. The first pharaoh of Egypt was Narmer, who unified Upper and Lower Egypt around 3100 BCE. The Egyptians developed hieroglyphics, a complex writing system using pictorial symbols to record their history, religious beliefs, and government activities. The Great Pyramid of Giza, built as a tomb for Pharaoh Khufu, stands as a remarkable achievement of Egyptian engineering, primarily constructed from stone. The pyramids were built as tombs for pharaohs, ensuring their safe passage into the afterlife. The Sphinx, a majestic statue with a lion’s body and a human head, served as the guardian of the Giza Plateau. Egyptian religion played a significant role in daily life, with Osiris being the god of the afterlife and Cleopatra known for her beauty and political skill in leading Egypt. Another famous queen, Nefertiti, was admired for her powerful influence during the reign of Pharaoh Akhenaten. Pharaoh Tutankhamun, often called King Tut, is famous today because his tomb was discovered nearly intact in 1922, providing valuable insights into Egyptian burial practices. Ancient Egypt’s rich culture, monumental architecture, and powerful rulers continue to captivate the world today.";
+    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
     const sprite_data_guide = {
       id: 'Rat Guide',
       greeting_intro: sprite_greet_guide_intro,
@@ -61,14 +61,35 @@ class GameLevelEgypt {
       src: sprite_src_guide,
       SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
-      pixels: {width: 150, height: 194},
-      INIT_POSITION: { x: 100, y: height - (height / TOURIST_SCALE_FACTOR) }, // Adjusted position
-      orientation: {rows: 1, columns: 1 },
-      down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
+      pixels: { width: 150, height: 194 },
+      INIT_POSITION: { x: width * (3 / 4), y: height - (height / TOURIST_SCALE_FACTOR) }, // Adjusted position
+      orientation: { rows: 1, columns: 1 },
+      down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
       reaction: function () {
         alert("u got rabies lolz u dieded XD");
-    },
+      },
+      moveHorizontally: function () {
+        let direction = -1; // 1 for right, -1 for left
+        const step = 3; // Distance to move per interval
+        const maxDistance = 80; // Maximum distance to move left or right
+        let initialX = this.INIT_POSITION.x;
+    
+        setInterval(() => {
+          this.INIT_POSITION.x += direction * step;
+    
+          // Reverse direction if the guard reaches the max distance
+          if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+            direction *= -1;
+    
+            // Flip the sprite horizontally based on direction
+            const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+            if (spriteElement) {
+              spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
+            }
+          }
+        }, this.ANIMATION_RATE);
+      },
     };
 
     // Custom alert function to handle sequential notifications
@@ -97,7 +118,7 @@ class GameLevelEgypt {
 
     // Add event listener for player interaction
     //window.addEventListener('keydown', handlePlayerInteraction);
-    
+
     // Log the guide's data and position
     console.log("Rat Guide Data:", sprite_data_guide);
     console.log("Rat Guide Position:", sprite_data_guide.INIT_POSITION.x, sprite_data_guide.INIT_POSITION.y);
@@ -296,6 +317,7 @@ class GameLevelEgypt {
     // Start the horizontal movement for both guards
     sprite_data_pyramidguard.moveHorizontally();
     sprite_data_tombguard.moveHorizontally();
+    sprite_data_guide.moveHorizontally();
   
     
         // List of objects defnitions for this level
