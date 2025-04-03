@@ -69,27 +69,27 @@ class GameLevelEgypt {
       reaction: function () {
         alert("u got rabies lolz u dieded XD");
       },
-      moveHorizontally: function () {
-        let direction = -1; // 1 for right, -1 for left
-        const step = 17; // Distance to move per interval
-        const maxDistance = 200; // Maximum distance to move left or right
-        let initialX = this.INIT_POSITION.x;
+      //moveHorizontally: function () {
+        //let direction = -1; // 1 for right, -1 for left
+        //const step = 17; // Distance to move per interval
+        //const maxDistance = 200; // Maximum distance to move left or right
+        //let initialX = this.INIT_POSITION.x;
     
-        setInterval(() => {
-          this.INIT_POSITION.x += direction * step;
+        //setInterval(() => {
+          //this.INIT_POSITION.x += direction * step;
     
           // Reverse direction if the guard reaches the max distance
-          if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
-            direction *= -1;
+          //if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+            //direction *= -1;
     
             // Flip the sprite horizontally based on direction
-            const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
-            if (spriteElement) {
-              spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
-            }
-          }
-        }, this.ANIMATION_RATE);
-      },
+            //const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+            //if (spriteElement) {
+              //spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
+            //}
+          //}
+        //}, this.ANIMATION_RATE);
+      //},
     };
 
     // Custom alert function to handle sequential notifications
@@ -317,7 +317,7 @@ class GameLevelEgypt {
     // Start the horizontal movement for both guards
     sprite_data_pyramidguard.moveHorizontally();
     sprite_data_tombguard.moveHorizontally();
-    sprite_data_guide.moveHorizontally();
+    //sprite_data_guide.moveHorizontally();
   
     
         // List of objects defnitions for this level
