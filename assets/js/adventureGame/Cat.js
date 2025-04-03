@@ -67,9 +67,9 @@ class Cat extends Enemy {
 
     // Override the jump method for Bat
     jump() {
-        // Implement Bat-specific jump logic here
-        // console.log("Bat is jumping!");
-        //this.y -= 50; // Example: Move the Bat up by 50 pixels
+        //Implement Bat-specific jump logic here
+        console.log("enemy moved!");
+        this.position.x += 50; // Example: Move the Bat up by 50 pixels
     }
 
     handleCollisionEvent() {

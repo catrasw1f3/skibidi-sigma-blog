@@ -94,9 +94,9 @@ class Enemy extends Character {
             this.gameEnv.canvas.parentElement.appendChild(shard); // Add shard to the canvas
 
             const angle = Math.random() * 2 * Math.PI;
-            const speed = Math.random() * 5 + 2; 
+            const speed = Math.random() * 5 + 2;
             const shardX = Math.cos(angle) * speed;
-            const shardY = Math.sin(angle) * speed; 
+            const shardY = Math.sin(angle) * speed;
             shard.animate(
                 [
                     { transform: 'translate(0, 0)', opacity: 1 },
