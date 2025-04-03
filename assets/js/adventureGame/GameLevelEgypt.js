@@ -5,7 +5,7 @@ import Npc from './Npc.js';
 import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
-import Enemy from './Enemy.js';
+import Cat from './Cat.js';
 
 class GameLevelEgypt {
   constructor(gameEnv) {
@@ -59,7 +59,7 @@ class GameLevelEgypt {
       greeting_intro: sprite_greet_guide_intro,
       greeting_info: sprite_greet_guide_info,
       src: sprite_src_guide,
-      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
+      SCALE_FACTOR: 11,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: { width: 150, height: 194 },
       INIT_POSITION: { x: width * (3 / 4), y: height - (height / TOURIST_SCALE_FACTOR) }, // Adjusted position
@@ -71,8 +71,8 @@ class GameLevelEgypt {
       },
       moveHorizontally: function () {
         let direction = -1; // 1 for right, -1 for left
-        const step = 3; // Distance to move per interval
-        const maxDistance = 80; // Maximum distance to move left or right
+        const step = 17; // Distance to move per interval
+        const maxDistance = 200; // Maximum distance to move left or right
         let initialX = this.INIT_POSITION.x;
     
         setInterval(() => {
@@ -326,7 +326,7 @@ class GameLevelEgypt {
           { class: Player, data: sprite_data_tourist },
           { class: Npc, data: sprite_data_pyramidguard },
           { class: Npc, data: sprite_data_tombguard },
-          { class: Enemy, data: sprite_data_guide },
+          { class: Cat, data: sprite_data_guide },
         ];
     
         

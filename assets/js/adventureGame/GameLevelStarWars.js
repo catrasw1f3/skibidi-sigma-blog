@@ -1,7 +1,7 @@
 import Background from './Background.js';
 import Player from './Player.js';
 import Npc from './Npc.js';
-import Projectile from './Projectile.js';
+import Cat from './Cat.js';
 
 class GameLevelStarWars {
   constructor(gameEnv) {
@@ -47,6 +47,45 @@ class GameLevelStarWars {
         }
     };
 
+    // Cat enemy data
+    const sprite_src_cat = "/images/gamify/catenemy.png"; // be sure to include the path
+    const sprite_data_cat = {
+      id: 'Cat',
+      src: sprite_src_cat,
+      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
+      ANIMATION_RATE: 100,
+      pixels: { width: 120, height: 60 },
+      INIT_POSITION: { x: width / 2, y: height / 2 }, // Adjusted position
+      orientation: { rows: 2, columns: 3 },
+      down: { row: 0, start: 0, columns: 2 },  // This is the stationary npc, down is default 
+      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+      reaction: function () {
+        alert("MEOW >:DD CAT GOT U XD");
+      },
+      moveHorizontally: function () {
+        let direction = -1; // 1 for right, -1 for left
+        const step = 3; // Distance to move per interval
+        const maxDistance = 80; // Maximum distance to move left or right
+        let initialX = this.INIT_POSITION.x;
+    
+        setInterval(() => {
+          this.INIT_POSITION.x += direction * step;
+    
+          // Reverse direction if the guard reaches the max distance
+          if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
+            direction *= -1;
+    
+            // Flip the sprite horizontally based on direction
+            const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
+            if (spriteElement) {
+              spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
+            }
+          }
+        }, this.ANIMATION_RATE);
+      },
+    };
+
+
     // NPC Data for Tomb Guard
     const sprite_src_tombguard = "/images/gamify/tomb_guard.png";
       const sprite_greet_tombguard = "Sorry, can't let you out."
@@ -81,8 +120,17 @@ class GameLevelStarWars {
       orientation: {rows: 1, columns: 1 },
       down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.05, heightPercentage: 0.05 },
+      reaction: function() {
+        alert(sprite_greet_timemachine)
+      }
     };
 
+    
+    console.log("Cat data:", sprite_data_cat);
+    console.log("Cat initial position:", sprite_data_cat.INIT_POSITION);
+
+    //start the animation for moving horizontally
+    sprite_data_cat.moveHorizontally();
     
 
     // List of objects definitions for this level
@@ -91,6 +139,7 @@ class GameLevelStarWars {
       { class: Player, data: sprite_data_tourist },
       { class: Npc, data: sprite_data_tombguard },
       { class: Npc, data: sprite_data_timemachine },
+      { class: Cat, data: sprite_data_cat },
     ];
   }
 

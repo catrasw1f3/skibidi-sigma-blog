@@ -38,6 +38,60 @@ class Enemy extends Character {
         this.playerDestroyed = true; // Mark the player as "dead"
         this.gameEnv.gameControl.restartLevel(); // Restart the level
     }
+
+
+    /**
+     * check Proximity of the npc with player.
+     * This method must be implemented by subclasses.
+     * @abstract
+     */
+    checkProximityToPlayer() {
+        // To be implemented by subclasses
+        throw new Error("Method 'jump()' must be implemented.");
+    }
+
+    /**
+    * Create an explosion effect when the Enemy is destroyed.
+    * @param {number} x - The x-coordinate of the explosion.
+    * @param {number} y - The y-coordinate of the explosion.
+    */
+    explode(x,y) {
+        const shards = 20; // Number of shards
+        for (let i = 0; i < shards; i++) {
+            const shard = document.createElement('div');
+            shard.style.position = 'absolute';
+            shard.style.width = '5px';
+            shard.style.height = '5px';
+            shard.style.backgroundColor = 'brown'; // Color of the shards
+            shard.style.left =  `${x}px`;
+            shard.style.top = `${this.gameEnv.top+y}px`;
+            this.canvas.parentElement.appendChild(shard); // Add shard to the canvas
+
+            const angle = Math.random() * 2 * Math.PI;
+            const speed = Math.random() * 5 + 2;
+
+            const shardX = Math.cos(angle) * speed;
+            const shardY = Math.sin(angle) * speed;
+
+            shard.animate(
+                [
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${shardX * 20}px, ${shardY * 20}px)`, opacity: 0 },
+                ],
+                {
+                    duration: 1000,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                }
+            );
+
+            setTimeout(() => {
+                shard.remove(); // Remove shard after animation
+            }, 1000);
+        }
+        //this.canvas.style.opacity = 0; // Make the Bat disappear
+    }
+    
 }
 
 export default Enemy;
