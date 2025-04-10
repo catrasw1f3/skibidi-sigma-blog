@@ -2,7 +2,7 @@ import Character from './Character.js';
 
 // Define non-mutable constants as defaults
 const SCALE_FACTOR = 25; // 1/nth of the height of the canvas
-const STEP_FACTOR = 70; // 1/nth, or N steps up and across the canvas
+const STEP_FACTOR = 100; // 1/nth, or N steps up and across the canvas
 const ANIMATION_RATE = 1; // 1/nth of the frame rate
 const INIT_POSITION = { x: 0, y: 0 };
 
@@ -26,6 +26,10 @@ class Player extends Character {
         this.keypress = data?.keypress || {up: 87, left: 65, down: 83, right: 68};
         this.pressedKeys = {}; // active keys array
         this.bindMovementKeyListners();
+        this.gravity = data.GRAVITY || false;
+        this.acceleration = 0.001;
+        this.time = 0;
+        this.moved = false;
     }
 
     /**
@@ -90,18 +94,36 @@ class Player extends Character {
         } else if (this.pressedKeys[this.keypress.up]) {
             this.velocity.y -= this.yVelocity;
             this.direction = 'up';
+            this.moved = true;
         } else if (this.pressedKeys[this.keypress.left]) {
             this.velocity.x -= this.xVelocity;
             this.direction = 'left';
+            this.moved = true;
         } else if (this.pressedKeys[this.keypress.down]) {
             this.velocity.y += this.yVelocity;
             this.direction = 'down';
+            this.moved = true;
         } else if (this.pressedKeys[this.keypress.right]) {
             this.velocity.x += this.xVelocity;
             this.direction = 'right';
+            this.moved = true;
+        } else{
+            this.moved = false;
         }
     }
-
+    update() {
+        super.update();
+        if(!this.moved){
+            if (this.gravity) {
+                    this.time += 1;
+                    this.velocity.y += 0.5 + this.acceleration * this.time;
+                }
+            }
+        else{
+            this.time = 0;
+        }
+        }
+        
     /**
      * Overrides the reaction to the collision to handle
      *  - clearing the pressed keys array

@@ -67,9 +67,25 @@ class Cat extends Enemy {
 
     // Override the jump method for Bat
     jump() {
-        //Implement Bat-specific jump logic here
-        console.log("enemy moved!");
-        this.position.x += 50; // Example: Move the Bat up by 50 pixels
+        console.log("Cat is jumping!");
+
+        const slideDistance = 50; // Total distance to slide
+        const slideSpeed = 5; // Pixels to move per frame
+        let movedDistance = 0; // Track how far the cat has moved
+
+        const direction = 1; // Positive direction for sliding (you can adjust this if needed)
+
+        const slideInterval = setInterval(() => {
+            // Move the cat incrementally
+            this.position.x += direction * slideSpeed;
+            movedDistance += slideSpeed;
+
+            // Stop sliding when the total distance is covered
+            if (movedDistance >= slideDistance) {
+                clearInterval(slideInterval);
+                console.log("Cat finished sliding.");
+            }
+        }, 16); // Approximately 60 frames per second
     }
 
     handleCollisionEvent() {
