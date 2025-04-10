@@ -10,6 +10,19 @@ class FallingBlock extends Npc {
         this.velocityY = this.fallSpeed; // Vertical velocity
         this.gravity = 0.5; // Gravity acceleration
         this.bounceFactor = 0.5; // Reduce velocity to half on bounce
+
+        // Schedule block removal after 5 seconds
+        this.scheduleRemoval();
+    }
+
+    /**
+     * Schedule the removal of the block after 5 seconds.
+     */
+    scheduleRemoval() {
+        setTimeout(() => {
+            console.log(`Falling block ${this.id} is being removed after timeout.`);
+            this.destroy();
+        }, 5000); // 5000 milliseconds = 5 seconds
     }
 
     /**
@@ -33,6 +46,24 @@ class FallingBlock extends Npc {
         // Trigger any additional effects (e.g., increase score)
         if (player.addScore) {
             player.addScore(10); // Example: Add 10 points to the player's score
+        }
+    }
+
+    /**
+     * Destroy the block (remove it from the game environment and DOM).
+     */
+    destroy() {
+        console.log(`Destroying falling block: ${this.id}`);
+
+        // Remove the block from the DOM
+        if (this.canvas && this.canvas.parentNode) {
+            this.canvas.parentNode.removeChild(this.canvas);
+        }
+
+        // Remove the block from the gameObjects array
+        const index = this.gameEnv.gameObjects.indexOf(this);
+        if (index !== -1) {
+            this.gameEnv.gameObjects.splice(index, 1);
         }
     }
 
