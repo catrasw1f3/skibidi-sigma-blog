@@ -107,15 +107,24 @@ class GameLevelSquares {
                 gameObject.pickUp();
             }
         }
+
+        // Check for falling block collisions
+        if (gameObject instanceof FallingBlock) {
+            if (gameObject.checkCollision(playerOne)) {
+                gameObject.pickUp(playerOne);
+            } else if (gameObject.checkCollision(playerTwo)) {
+                gameObject.pickUp(playerTwo);
+            }
+        }
     });
 
     // Remove blocks that stop bouncing
     this.gameEnv.gameObjects = this.gameEnv.gameObjects.filter(gameObject => {
-      if (gameObject instanceof FallingBlock && gameObject.velocityY === 0) {
-        console.log(`Removing falling block: ${gameObject.id}`);
-        return false; // Remove the block
-      }
-      return true; // Keep other objects
+        if (gameObject instanceof FallingBlock && gameObject.velocityY === 0) {
+            console.log(`Removing falling block: ${gameObject.id}`);
+            return false; // Remove the block
+        }
+        return true; // Keep other objects
     });
   }
 

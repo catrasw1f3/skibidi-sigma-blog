@@ -12,6 +12,30 @@ class FallingBlock extends Npc {
         this.bounceFactor = 0.5; // Reduce velocity to half on bounce
     }
 
+    /**
+     * Handle block pick-up by a player.
+     * @param {Player} player - The player who picked up the block.
+     */
+    pickUp(player) {
+        console.log(`${player.id} picked up block: ${this.id}`);
+
+        // Remove the block from the DOM
+        if (this.canvas && this.canvas.parentNode) {
+            this.canvas.parentNode.removeChild(this.canvas);
+        }
+
+        // Remove the block from the gameObjects array
+        const index = this.gameEnv.gameObjects.indexOf(this);
+        if (index !== -1) {
+            this.gameEnv.gameObjects.splice(index, 1);
+        }
+
+        // Trigger any additional effects (e.g., increase score)
+        if (player.addScore) {
+            player.addScore(10); // Example: Add 10 points to the player's score
+        }
+    }
+
     update() {
         // Apply gravity to velocity
         this.velocityY += this.gravity;
