@@ -7,12 +7,28 @@ permalink: /gamify/API
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Currency Converter</title>
+  <title>currency convert api thing</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 2rem;
       text-align: center;
+    }
+    .dark-mode {
+      background:rgb(248, 0, 0);
+      color: #f5f5f5;
+    }
+    .converter {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+    .dark-mode .converter {
+      background:rgb(0, 0, 255);
+      color: #f5f5f5;
     }
     input, select, button {
       padding: 10px;
@@ -23,6 +39,19 @@ permalink: /gamify/API
       margin-top: 20px;
       font-weight: bold;
       font-size: 1.2rem;
+    }
+    .theme-toggle {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .theme-toggle button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      border: none;
+      background:rgb(150, 167, 74);
+      color: white;
     }
     .error {
       color: red;
@@ -42,6 +71,11 @@ permalink: /gamify/API
 
   <div id="result" class="result"></div>
   <div id="error" class="error"></div>
+
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+  </div>
+</div>
 
   <script>
     let rates = {};
@@ -87,6 +121,19 @@ permalink: /gamify/API
       document.getElementById('result').textContent = `${amount} ${from} = ${converted.toFixed(2)} ${to}`;
       document.getElementById('error').textContent = '';
     }
+     function toggleTheme() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("preferredTheme", isDark ? "dark" : "light");
+  }
+
+  // On Load: Apply Theme
+  (function applySavedTheme() {
+    const savedTheme = localStorage.getItem("preferredTheme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+    console.log("Theme changed")
+  })();
   </script>
 </body>
 </html>
