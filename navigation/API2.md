@@ -4,6 +4,7 @@ title: API2
 permalink: /gamify/API2
 ---
 # Currency converter + toggle theme
+### for the API + local storage hacks
 
 <!DOCTYPE html>
 <html lang="en">
