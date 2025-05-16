@@ -5,7 +5,7 @@ import Npc from './Npc.js';
 import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
-import Cat from './Cat.js';
+import DialogueSystem from './DialogueSystem.js';
 
 class GameLevelEgypt {
   constructor(gameEnv) {
@@ -13,6 +13,8 @@ class GameLevelEgypt {
     let width = gameEnv.innerWidth;
     let height = gameEnv.innerHeight;
     let path = gameEnv.path;
+
+    this.dialogueSystem = new DialogueSystem();
 
     // Background data
     const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.png"; // be sure to include the path
@@ -54,6 +56,7 @@ class GameLevelEgypt {
     const sprite_src_guide = path + "/images/gamify/ratguide.png"; // be sure to include the path
     const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
     const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
+    const dialogueSystem = this.dialogueSystem;
     const sprite_data_guide = {
       id: 'Rat Guide',
       greeting_intro: sprite_greet_guide_intro,
@@ -66,30 +69,17 @@ class GameLevelEgypt {
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+      dialogues: [
+        "nomnomnomnomnomnomnomnomnom",
+        "cheese you. have? is .ok",
+        "call me mouseski the way i be wearing my white button down XD"
+      ],
       reaction: function () {
-        alert("u got rabies lolz u dieded XD");
+       //none for rn
       },
-      //moveHorizontally: function () {
-        //let direction = -1; // 1 for right, -1 for left
-        //const step = 17; // Distance to move per interval
-        //const maxDistance = 200; // Maximum distance to move left or right
-        //let initialX = this.INIT_POSITION.x;
-    
-        //setInterval(() => {
-          //this.INIT_POSITION.x += direction * step;
-    
-          // Reverse direction if the guard reaches the max distance
-          //if (this.INIT_POSITION.x > initialX + maxDistance || this.INIT_POSITION.x < initialX - maxDistance) {
-          //direction *= -1;
-    
-            // Flip the sprite horizontally based on direction
-            //const spriteElement = document.getElementById(this.id); // Ensure the sprite has an ID matching its `id` property
-            //if (spriteElement) {
-              //spriteElement.style.transform = direction === -1 ? 'scaleX(1)' : 'scaleX(-1)';
-            //}
-          //}
-        //}, this.ANIMATION_RATE);
-      //},
+      interact: function() {
+        dialogueSystem.showRandomDialogue(this); // Using Dialogue system instead of alert
+      }
     };
 
     // Custom alert function to handle sequential notifications
@@ -252,12 +242,8 @@ class GameLevelEgypt {
   };
 
       const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png";
-      const sprite_greet_tombguard = [
-        "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....",
-        "You again? I thought I told you to beware of the cat!",
-        "Welcome back, traveler. Remember, the cat is always watching.",
-        "I see you've returned. The cat is still out there, lurking."
-      ];
+      const sprite_greet_tombguard = "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....";
+      //const dialogueSystem = this.dialogueSystem
       const sprite_data_tombguard = {
         id: 'Tomb Guard',
         greetings: sprite_greet_tombguard,
@@ -269,11 +255,15 @@ class GameLevelEgypt {
         orientation: { rows: 1, columns: 1 },
         down: { row: 0, start: 0, columns: 1 },
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        reaction: () => {
-            const randomGreeting = sprite_data_tombguard.greetings[Math.floor(Math.random() * sprite_data_tombguard.greetings.length)];
-            alert(randomGreeting);
+        /**dialogues: [
+        "You again? I thought I told you to beware of the cat!",
+        "Welcome back, traveler. Remember, the cat is always watching.",
+        "I see you've returned. The cat is still out there, lurking."
+      ], */
+        reaction: function() {
+            //none for rn 
         },
-        moveHorizontally: function () {
+        moveHorizontally: function() {
           let direction = -1; // 1 for right, -1 for left
           const step = 5; // Distance to move per interval
           const maxDistance = 100; // Maximum distance to move left or right
@@ -295,6 +285,7 @@ class GameLevelEgypt {
           }, this.ANIMATION_RATE);
       },
       interact: function() {
+       // dialogueSystem.showRandomDialogue(); // Using Dialogue system instead of alert
         console.log("interacted with tomb guard ishfjhersfiqwe")
         // Set a primary game reference from the game environment
         let primaryGame = gameEnv.gameControl;
@@ -308,8 +299,8 @@ class GameLevelEgypt {
         gameInGame.start();
         // Setup "callback" function to allow transition from game in gaame to the underlying game
         gameInGame.gameOver = function() {
-          // Call .resume on primary game
-          primaryGame.resume();
+        // Call .resume on primary game
+        primaryGame.resume();
         }
       }
     };
@@ -326,7 +317,7 @@ class GameLevelEgypt {
           { class: Player, data: sprite_data_tourist },
           { class: Npc, data: sprite_data_pyramidguard },
           { class: Npc, data: sprite_data_tombguard },
-          { class: Cat, data: sprite_data_guide },
+          { class: Npc, data: sprite_data_guide },
         ];
     
         

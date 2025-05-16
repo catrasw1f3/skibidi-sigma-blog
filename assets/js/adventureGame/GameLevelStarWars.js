@@ -172,20 +172,20 @@ class GameLevelStarWars {
                     deathMessage.style.left = '50%';
                     deathMessage.style.transform = 'translate(-50%, -50%)';
                     deathMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                    deathMessage.style.color = '#FF0000';
+                    deathMessage.style.color = 'rgb(0, 0, 0,)';
                     deathMessage.style.padding = '30px';
                     deathMessage.style.borderRadius = '10px';
                     deathMessage.style.fontFamily = "'Press Start 2P', sans-serif";
                     deathMessage.style.fontSize = '24px';
                     deathMessage.style.textAlign = 'center';
                     deathMessage.style.zIndex = '10000';
-                    deathMessage.style.border = '3px solid #FF0000';
-                    deathMessage.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.5)';
+                    deathMessage.style.border = '3px solidrgb(255, 213, 0)';
+                    deathMessage.style.boxShadow = '0 0 20px rgba(120, 78, 0, 0.5)';
                     deathMessage.style.width = '400px';
                     deathMessage.innerHTML = `
-                        <div style="margin-bottom: 20px;">:skull_and_crossbones: YOU DIED :skull_and_crossbones:</div>
-                        <div style="font-size: 16px; margin-bottom: 20px;">The Enderman got you!</div>
-                        <div style="font-size: 14px;">Respawning in 2 seconds...</div>
+                        <div style="margin-bottom: 20px;"> MEEOWW >:((( </div>
+                        <div style="font-size: 16px; margin-bottom: 20px;">cat got ur tail?</div>
+                        <div style="font-size: 14px;">don't worry, they have 9 lives anyway. respawning...</div>
                     `;
                     document.body.appendChild(deathMessage);
                     // Remove message after delay
@@ -245,7 +245,7 @@ class GameLevelStarWars {
       down: {row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.05, heightPercentage: 0.05 },
       reaction: function() {
-        alert(sprite_greet_timemachine)
+        //alert(sprite_greet_timemachine)
       }
     };
 
