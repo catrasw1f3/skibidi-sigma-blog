@@ -5,34 +5,62 @@ class Enemy extends Character {
     constructor(data = null, gameEnv = null) {
         super(data, gameEnv);
         this.playerDestroyed = false; // Tracks if the player has been "killed"
-        this.speed = data?.speed || 0; // Initialize speed
-        this.x = data?.INIT_POSITION?.x || 0; // Initialize x position
-        this.y = data?.INIT_POSITION?.y || 0; // Initialize y position
-        this.collisionData = { hit: false, touchPoints: {} }; // Initialize collision data
     }
 
     /**
-     * Update method to handle collision detection and drawing.
+     * Override the update method to handle collision detection.
      */
     update() {
-        this.draw(); // Draw the enemy
+        // Update begins by drawing the object
+        this.draw();
 
-        // Check for collisions with the player
+        if (this.spriteData && typeof this.spriteData.update === 'function') {
+            this.spriteData.update.call(this);
+        }
+        // Check for collision with the player
         if (!this.playerDestroyed && this.collisionChecks()) {
             this.handleCollisionEvent();
+        }
+
+        // Ensure the object stays within the canvas boundaries
+        this.stayWithinCanvas();
+    }
+
+    /**
+     * stayWithinCanvas method ensures that the object stays within the boundaries of the canvas.
+     */
+    stayWithinCanvas() {
+        // Bottom of the canvas
+        if (this.position.y + this.height > this.gameEnv.innerHeight) {
+            this.position.y = this.gameEnv.innerHeight - this.height;
+            this.velocity.y = 0;
+        }
+        // Top of the canvas
+        if (this.position.y < 0) {
+            this.position.y = 0;
+            this.velocity.y = 0;
+        }
+        // Right of the canvas
+        if (this.position.x + this.width > this.gameEnv.innerWidth) {
+            this.position.x = this.gameEnv.innerWidth - this.width;
+            this.velocity.x = 0;
+        }
+        // Left of the canvas
+        if (this.position.x < 0) {
+            this.position.x = 0;
+            this.velocity.x = 0;
         }
     }
 
     /**
-     * Checks if the Enemy collides with the Player.
-     * @returns {boolean} True if a collision is detected, otherwise false.
+     * Check if the Enemy collides with the Player.
+     * @returns {boolean} True if the Enemy collides with the Player, False otherwise.
      */
     collisionChecks() {
         for (const gameObj of this.gameEnv.gameObjects) {
             if (gameObj instanceof Player) {
-                this.isCollision(gameObj); // Ensure this method is implemented in Character
+                this.isCollision(gameObj);
                 if (this.collisionData.hit) {
-                    console.log("Collision detected!");
                     return true;
                 }
             }
@@ -41,62 +69,45 @@ class Enemy extends Character {
     }
 
     /**
-     * Handles what happens when the player collides with the enemy.
+     * Handle collision with the Player.
      */
     handleCollisionEvent() {
-        console.log("Collision data:", this.collisionData);
-
-        if (this.collisionData.touchPoints.other?.id === "player") {
-            if (this.collisionData.touchPoints.other.left && this.immune === 0) {
-                console.log("Collision detected on the left side. Reversing speed and moving back.");
-                this.speed = -this.speed; // Reverse speed
-                this.x += 10; // Move enemy back slightly
-                console.log("Updated enemy position:", this.x);
-            }
-        }
-
-        // Restart the level after handling the collision
-        if (this.gameEnv?.gameControl?.restartLevel) {
-            this.gameEnv.gameControl.restartLevel();
-        } else {
-            console.error("gameControl or restartLevel is not defined.");
-        }
+        console.log("Player collided with the Enemy. Player is dead.");
+        this.playerDestroyed = true; // Mark the player as "dead"
+        this.gameEnv.gameControl.currentLevel.restart = true; 
     }
 
     /**
-     * Abstract method to check proximity of the NPC with the player.
-     * Must be implemented by subclasses.
+     * Proximity check is no longer needed, so leave it unimplemented.
      */
     checkProximityToPlayer() {
-        throw new Error("Method 'checkProximityToPlayer()' must be implemented.");
+        // No longer needed
     }
 
-    /**
-     * Creates an explosion effect when the Enemy is destroyed.
-     * @param {number} x - The x-coordinate of the explosion.
-     * @param {number} y - The y-coordinate of the explosion.
-     */
-    explode(x, y) {
+    /*
+    * Create an explosion effect when the Enemy is destroyed.
+    * @param {number} x - The x-coordinate of the explosion.
+    * @param {number} y - The y-coordinate of the explosion.
+    */
+    
+    explode(x,y) {
         const shards = 20; // Number of shards
-        if (!this.gameEnv?.canvas?.parentElement) {
-            console.error("Canvas or parent element is not defined.");
-            return;
-        }
-
         for (let i = 0; i < shards; i++) {
             const shard = document.createElement('div');
             shard.style.position = 'absolute';
             shard.style.width = '5px';
             shard.style.height = '5px';
-            shard.style.backgroundColor = 'brown'; // Color of the shards
-            shard.style.left = `${x}px`;
-            shard.style.top = `${y}px`;
-            this.gameEnv.canvas.parentElement.appendChild(shard); // Add shard to the canvas
+            shard.style.backgroundColor = 'red'; // color of the shards
+            shard.style.left =  `${x}px`;
+            shard.style.top = `${this.gameEnv.top+y}px`;
+            this.canvas.parentElement.appendChild(shard); // adds shard to the canvas
 
             const angle = Math.random() * 2 * Math.PI;
             const speed = Math.random() * 5 + 2;
+
             const shardX = Math.cos(angle) * speed;
             const shardY = Math.sin(angle) * speed;
+
             shard.animate(
                 [
                     { transform: 'translate(0, 0)', opacity: 1 },
@@ -110,9 +121,19 @@ class Enemy extends Character {
             );
 
             setTimeout(() => {
-                shard.remove(); // Remove shard after animation
-            }, 1000);
+                shard.remove(); // removes shards after animation
+            }, 1000); // 1000 means that the animation should last one second, the delete the remaining shards and cleans up
         }
+    }
+
+    /**
+     * jump the npc based on the collision.
+     * This method must be implemented by subclasses.
+     * @abstract
+     */
+    jump() {
+        // To be implemented by subclasses
+        throw new Error("Method 'jump()' must be implemented.");
     }
 }
 
