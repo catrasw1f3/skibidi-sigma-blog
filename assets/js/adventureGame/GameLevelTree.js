@@ -5,9 +5,8 @@ import Cat from './Cat.js';
 import Enemy from './Enemy.js';
 import DialogueSystem from './DialogueSystem.js';
 
-class GameLevelTown {
+class GameLevelTree {
   constructor(gameEnv) {
-    this.gameEnv = gameEnv;
     // Values dependent on GameEnv.create()
     let width = gameEnv.innerWidth;
     let height = gameEnv.innerHeight;
@@ -16,7 +15,7 @@ class GameLevelTown {
     this.dialogueSystem = new DialogueSystem();
 
     // Background data
-    const image_src_bg = "/images/gamify/town.jpeg"; // Default background
+    const image_src_bg = "/images/gamify/Tree.jpeg"; // Default background
     //const image_src_bg2 = "/images/gamify/tomb2.png"; // Alternate background
     const image_data_bg = {
         id: 'Background',
@@ -24,30 +23,11 @@ class GameLevelTown {
         pixels: { height: 570, width: 1025 }
     };
 
-    // Show a dialogue box after 4 seconds of gameplay
+    // Show a dialogue box after 10 seconds of gameplay
     setTimeout(() => {
       console.log("Dialogue box should appear now.");
-      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going. Follow me!"`);
-
-      // After 2 more seconds, start moving the King (Rat Guide) to the right
-      setTimeout(() => {
-        // Find the Rat Guide object in gameEnv.gameObjects
-        const kingObj = this.gameEnv.gameObjects.find(obj => obj.data && obj.data.id === 'Rat Guide');
-        if (!kingObj) return;
-
-        // Animate King from left to right
-        const targetX = this.gameEnv.innerWidth - kingObj.width - 20; // 20px from right edge
-        const moveSpeed = 5; // pixels per frame
-        function moveKing() {
-          if (kingObj.position.x < targetX) {
-            kingObj.position.x += moveSpeed;
-            if (kingObj.position.x > targetX) kingObj.position.x = targetX;
-            requestAnimationFrame(moveKing);
-          }
-        }
-        moveKing();
-      }, 700); // Wait 2 seconds after dialogue
-    }, 4000); // Initial 4 second delay
+      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going!`);
+    }, 4000); // 10000 ms = 10 seconds
 
     // Player data for Tourist
     const sprite_src_player = "/images/gamify/creature.png"; // be sure to include the path
@@ -59,7 +39,7 @@ class GameLevelTown {
         SCALE_FACTOR: PLAYER_SCALE_FACTOR,
         STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: width - (width * 31 / 32), y: height - (height/PLAYER_SCALE_FACTOR) }, 
+        INIT_POSITION: { x: width - (width * 7 / 8), y: height - (height/PLAYER_SCALE_FACTOR) }, 
         pixels: {height: 100, width: 800},
         orientation: {rows: 1, columns: 8 },
         down: {row: 0, start: 4, columns: 2 },
@@ -249,7 +229,7 @@ class GameLevelTown {
       SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: { width: 1200, height: 1580 },
-      INIT_POSITION: { x: width - (width * 7 / 8), y: height - 0.5 * (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
+      INIT_POSITION: { x: width - (width * 15 / 16), y: height - 0.5 * (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -321,4 +301,4 @@ class GameLevelTown {
   }
 }
 
-export default GameLevelTown;
+export default GameLevelTree;

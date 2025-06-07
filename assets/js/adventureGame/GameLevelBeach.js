@@ -7,8 +7,9 @@ import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
 import DialogueSystem from './DialogueSystem.js';
 import GameLevelTown from './GameLevelTown.js';
+import GameLevelTree from './GameLevelTree.js';
 
-class GameLevelEgypt {
+class GameLevelBeach {
   constructor(gameEnv) {
     this.gameEnv = gameEnv; // <-- Add this line at the top of your constructor
 
@@ -383,4 +384,4 @@ class GameLevelEgypt {
   } */
     } 
     
-    export default GameLevelEgypt;
+    export default GameLevelBeach;
