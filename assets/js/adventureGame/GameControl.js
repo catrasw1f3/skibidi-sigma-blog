@@ -5,6 +5,8 @@ import GameLevelStarWars from "./GameLevelStarWars.js";
 import GameLevelSquares from "./GameLevelSquares.js";
 import GameLevelTown from "./GameLevelTown.js";
 import GameLevelBeach from "./GameLevelBeach.js";
+import GameLevelTree from "./GameLevelTree.js";
+import GameLevelHollowMind from "./GameLevelHollowMind.js";
 
 class GameControl {
     /**
@@ -12,7 +14,7 @@ class GameControl {
      * @param {*} path - The path to the game assets
      * @param {*} levelClasses - The classes of for each game level
      */
-    constructor(path, levelClasses = [GameLevelBeach, GameLevelTown, GameLevelLondon, GameLevelSquares]) {
+    constructor(path, levelClasses = [GameLevelBeach, GameLevelTown, GameLevelTree, GameLevelHollowMind, GameLevelLondon, GameLevelSquares]) {
         // GameControl properties
         this.path = path;
         this.levelClasses = levelClasses;
@@ -242,8 +244,12 @@ class GameControl {
      */
     restartLevel() {
         console.log("Restarting the current level...");
-        if (this.currentLevel) {
-            this.currentLevel.destroy(); // Clean up the current level
+        // Before starting a new level
+        if (this.currentLevel && typeof this.currentLevel.destroy === "function") {
+            this.currentLevel.destroy();
+        }
+        if (this.gameEnv && Array.isArray(this.gameEnv.gameObjects)) {
+            this.gameEnv.gameObjects.length = 0;
         }
         const CurrentLevelClass = this.levelClasses[this.currentLevelIndex];
         this.currentLevel = new GameLevel(this);

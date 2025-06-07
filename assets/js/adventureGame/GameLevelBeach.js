@@ -115,24 +115,12 @@ class GameLevelBeach {
         
       },
       interact: () => {
-        // Change the background when interacting with the rat
-        //this.changeBackground(image_data_bg, image_src_bg2);
-        //console.log("interacted with Rat Guide and changed background");
-        // Set a primary game reference from the game environment
-          let primaryGame = gameEnv.gameControl;
-          // Define the game in game level
-          let levelArray = [GameLevelTown];
-          // Define a new GameControl instance with the StarWars level
-          let gameInGame = new GameControl(gameEnv.game,levelArray);
-          // Pause the primary game 
-          primaryGame.pause();
-          // Start the game in game
-          gameInGame.start();
-          // Setup "callback" function to allow transition from game in gaame to the underlying game
-          gameInGame.gameOver = function() {
-            // Call .resume on primary game
-            primaryGame.resume();
-          } 
+        if (gameEnv.gameControl) {
+          // Set the next level index or swap out the levelClasses array if needed
+          gameEnv.gameControl.currentLevelIndex = 1;
+          gameEnv.gameControl.transitionToLevel();
+        }
+        console.log("going to town level")
       }
     }; 
 

@@ -23,12 +23,13 @@ for (let gameObjectClass of this.gameObjectClasses) {
     }
 
     destroy() {
-        for (let index = this.gameEnv.gameObjects.length - 1; index >= 0; index--) {
-             this.gameEnv.gameObjects[index].destroy();
-        }
-        // Remove event listener for window resize
-        window.removeEventListener('resize', this.resize.bind(this));
-    }
+  if (this.gameLevel && typeof this.gameLevel.destroy === "function") {
+    this.gameLevel.destroy();
+  }
+  if (this.gameEnv && Array.isArray(this.gameEnv.gameObjects)) {
+    this.gameEnv.gameObjects.length = 0;
+  }
+}
 
     update() {
         this.gameEnv.clear();

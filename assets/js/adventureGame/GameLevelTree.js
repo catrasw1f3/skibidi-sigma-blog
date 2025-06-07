@@ -4,6 +4,7 @@ import Npc from './Npc.js';
 import Cat from './Cat.js';
 import Enemy from './Enemy.js';
 import DialogueSystem from './DialogueSystem.js';
+import GameLevelHollowMind from './GameLevelHollowMind.js';
 
 class GameLevelTree {
   constructor(gameEnv) {
@@ -26,8 +27,27 @@ class GameLevelTree {
     // Show a dialogue box after 10 seconds of gameplay
     setTimeout(() => {
       console.log("Dialogue box should appear now.");
-      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going!`);
-    }, 4000); // 10000 ms = 10 seconds
+      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going. Follow me!"`);
+
+      // After 2 more seconds, start moving the King (Rat Guide) to the right
+      setTimeout(() => {
+        // Find the Rat Guide object in gameEnv.gameObjects
+        const kingObj = this.gameEnv.gameObjects.find(obj => obj.data && obj.data.id === 'Rat Guide');
+        if (!kingObj) return;
+
+        // Animate King from left to right
+        const targetX = this.gameEnv.innerWidth - kingObj.width - 20; // 20px from right edge
+        const moveSpeed = 5; // pixels per frame
+        function moveKing() {
+          if (kingObj.position.x < (targetX * 1 / 2)) {
+            kingObj.position.x += moveSpeed;
+            if (kingObj.position.x > (targetX * 1 / 2)) kingObj.position.x = (targetX * 1 / 2);
+            requestAnimationFrame(moveKing);
+          }
+        }
+        moveKing();
+      }, 500); // Wait 2 seconds after dialogue
+    }, 4000); // Initial 4 second delay
 
     // Player data for Tourist
     const sprite_src_player = "/images/gamify/creature.png"; // be sure to include the path
@@ -54,167 +74,6 @@ class GameLevelTree {
         keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
     };
 
-    // Cat enemy data
-    /** const sprite_src_cat = "/images/gamify/catenemy.png"; // be sure to include the path
-    const sprite_data_cat = {
-      id: 'Cat',
-      src: sprite_src_cat,
-      SCALE_FACTOR: 5,  // Adjust this based on your scaling needs
-      ANIMATION_RATE: 100,
-      pixels: { width: 120, height: 60 },
-      INIT_POSITION: { x: width / 2, y: height / 2 }, // Adjusted position
-      orientation: { rows: 3, columns: 2 },
-      down: { row: 0, start: 0, columns: 2 },  // This is the stationary npc, down is default 
-      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-      reaction: function () {
-        alert("MEOW >:DD CAT GOT U XD");
-      },
-    };
-    */
-
-    /** const sprite_src_cat = "/images/gamify/catenemy.png";
-    const sprite_data_cat = {
-        id: 'Cat',
-        src: sprite_src_cat,
-        SCALE_FACTOR: 7,
-        ANIMATION_RATE: 50,
-        pixels: {height: 2000, width: 1545},
-        INIT_POSITION: { x: width / 2, y: height / 4 },
-        orientation: {rows: 2, columns: 3},
-        down: {row: 0, start: 0, columns: 1},
-        hitbox: { widthPercentage: 0.4, heightPercentage: 0.4 },
-        zIndex: 10,
-        isKilling: false, // Flag to prevent multiple kills
-        // The update method with all functionality inline
-        update: function() {
-            // Skip update if already in killing process
-            if (this.isKilling) {
-                return;
-            }
-            // Find all player objects
-            const players = this.gameEnv.gameObjects.filter(obj =>
-                obj.constructor.name === 'Player'
-            );
-            if (players.length === 0) return;
-            // Find nearest player
-            let nearest = players[0];
-            let minDist = Infinity;
-            for (const player of players) {
-                const dx = player.position.x - this.position.x;
-                const dy = player.position.y - this.position.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < minDist) {
-                    minDist = dist;
-                    nearest = player;
-                }
-            }
-            // Move towards nearest player
-            const speed = 1.5; // Adjust speed as needed
-            const dx = nearest.position.x - this.position.x;
-            const dy = nearest.position.y - this.position.y;
-            const angle = Math.atan2(dy, dx);
-            // Update position
-            this.position.x += Math.cos(angle) * speed;
-            this.position.y += Math.sin(angle) * speed;
-            // Check for collision with any player
-            for (const player of players) {
-                // Calculate distance for hitbox collision
-                const playerX = player.position.x + player.width / 2;
-                const playerY = player.position.y + player.height / 2;
-                const enemyX = this.position.x + this.width / 2;
-                const enemyY = this.position.y + this.height / 2;
-                const dx = playerX - enemyX;
-                const dy = playerY - enemyY;
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                // Hitbox collision - adjust values as needed
-                const collisionThreshold = (player.width * player.hitbox.widthPercentage +
-                                        this.width * this.hitbox.widthPercentage) / 2;
-                if (distance < collisionThreshold) {
-                    // Set killing flag to prevent repeated kills
-                    this.isKilling = true;
-                    // === PLAYER DEATH: ALL FUNCTIONALITY INLINE ===
-                    // 1. Play death animation - particle effect
-                    const playerX = player.position.x;
-                    const playerY = player.position.y;
-                    // Create explosion effect
-                    for (let i = 0; i < 20; i++) {
-                        const particle = document.createElement('div');
-                        particle.style.position = 'absolute';
-                        particle.style.width = '5px';
-                        particle.style.height = '5px';
-                        particle.style.backgroundColor = 'red';
-                        particle.style.left = `${playerX + player.width/2}px`;
-                        particle.style.top = `${playerY + player.height/2}px`;
-                        particle.style.zIndex = '9999';
-                        document.body.appendChild(particle);
-                        // Animate particles outward
-                        const angle = Math.random() * Math.PI * 2;
-                        const speed = Math.random() * 5 + 2;
-                        const distance = Math.random() * 100 + 50;
-                        const destX = Math.cos(angle) * distance;
-                        const destY = Math.sin(angle) * distance;
-                        particle.animate(
-                            [
-                                { transform: 'translate(0, 0)', opacity: 1 },
-                                { transform: `translate(${destX}px, ${destY}px)`, opacity: 0 }
-                            ],
-                            {
-                                duration: 1000,
-                                easing: 'ease-out',
-                                fill: 'forwards'
-                            }
-                        );
-                        // Remove particle after animation
-                        setTimeout(() => {
-                            if (particle.parentNode) {
-                                particle.parentNode.removeChild(particle);
-                            }
-                        }, 1000);
-                    }
-                    // 2. Show death message dialog
-                    const deathMessage = document.createElement('div');
-                    deathMessage.style.position = 'fixed';
-                    deathMessage.style.top = '50%';
-                    deathMessage.style.left = '50%';
-                    deathMessage.style.transform = 'translate(-50%, -50%)';
-                    deathMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                    deathMessage.style.color = 'rgb(0, 0, 0,)';
-                    deathMessage.style.padding = '30px';
-                    deathMessage.style.borderRadius = '10px';
-                    deathMessage.style.fontFamily = "'Press Start 2P', sans-serif";
-                    deathMessage.style.fontSize = '24px';
-                    deathMessage.style.textAlign = 'center';
-                    deathMessage.style.zIndex = '10000';
-                    deathMessage.style.border = '3px solidrgb(255, 213, 0)';
-                    deathMessage.style.boxShadow = '0 0 20px rgba(120, 78, 0, 0.5)';
-                    deathMessage.style.width = '400px';
-                    deathMessage.innerHTML = `
-                        <div style="margin-bottom: 20px;"> MEEOWW >:((( </div>
-                        <div style="font-size: 16px; margin-bottom: 20px;">cat got ur tail?</div>
-                        <div style="font-size: 14px;">don't worry, they have 9 lives anyway. respawning...</div>
-                    `;
-                    document.body.appendChild(deathMessage);
-                    // Remove message after delay
-                    setTimeout(() => {
-                        if (deathMessage.parentNode) {
-                            deathMessage.parentNode.removeChild(deathMessage);
-                        }
-                    }, 2000);
-                    // 3. Reset the level after a short delay using page reload for reliability
-                    setTimeout(() => {
-                        // Clean up any lingering resources before reload
-                        if (self && self.timerInterval) {
-                            clearInterval(self.timerInterval);
-                        }
-                        // Force a complete page reload - most reliable way to reset
-                        location.reload();
-                    }, 2000); // 2 second delay before reset
-                    break;
-                }
-            }
-        }
-    }; */
-
 
     // Rat Guide data
     const sprite_src_guide = "/images/gamify/king.png"; // be sure to include the path
@@ -237,6 +96,12 @@ class GameLevelTree {
       reaction: function () {
       },
       interact: () => {
+        if (gameEnv.gameControl) {
+          // Set the next level index or swap out the levelClasses array if needed
+          gameEnv.gameControl.currentLevelIndex = 3;
+          gameEnv.gameControl.transitionToLevel();
+        }
+        console.log("going to hollowmind level")
       }
     };
 
@@ -285,20 +150,6 @@ class GameLevelTree {
     this.gameEnv.redraw(); // Trigger a redraw of the game environment
   }
 
-  update() {
-    // Find the player object (adjust as needed for your structure)
-    const playerObj = this.gameEnv.gameObjects.find(obj => obj.constructor.name === 'Player');
-    if (!playerObj) return;
-
-    // Check if player touches right edge
-    if (playerObj.position.x + playerObj.width >= this.gameEnv.innerWidth) {
-      // Trigger level transition
-      if (this.gameEnv.gameControl && typeof this.gameEnv.gameControl.transitionToLevel === "function") {
-        this.gameEnv.gameControl.currentLevelIndex++;
-        this.gameEnv.gameControl.transitionToLevel();
-      }
-    }
-  }
 }
 
 export default GameLevelTree;
