@@ -51,7 +51,7 @@ class DialogueSystem {
         padding: "20px",
         maxWidth: "80%",
         background: "rgba(0, 0, 0, 0.85)",
-        color: "rgb(207, 131, 0)",
+        color: "rgb(27, 131, 0)",
         fontFamily: "'Press Start 2P', monospace",
         fontSize: "14px",
         textAlign: "center",

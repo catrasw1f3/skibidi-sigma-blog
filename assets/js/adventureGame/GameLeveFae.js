@@ -25,6 +25,15 @@ class GameLevelEgypt {
         pixels: {height: 225, width: 400}
     };
 
+        // ...existing code in GameLevelEgypt constructor...
+    
+    // Show a dialogue box after 10 seconds of gameplay
+    setTimeout(() => {
+      console.log("Dialogue box should appear now.");
+      this.dialogueSystem.showDialogue("Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?");
+    }, 10000); // 10000 ms = 10 seconds
+    
+    // ...rest of your constructor code...
 
     // Player data for Tourist
     const sprite_src_player = path + "/images/gamify/creature.png"; // be sure to include the path
@@ -53,6 +62,7 @@ class GameLevelEgypt {
 
     
     // Rat Guide data
+   /** 
     const sprite_src_guide = path + "/images/gamify/ratguide.png"; // be sure to include the path
     const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
     const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
@@ -80,7 +90,7 @@ class GameLevelEgypt {
       interact: function() {
         dialogueSystem.showRandomDialogue(this); // Using Dialogue system instead of alert
       }
-    };
+    }; */
 
     // Custom alert function to handle sequential notifications
     function customAlert(message, callback) {
@@ -110,8 +120,8 @@ class GameLevelEgypt {
     //window.addEventListener('keydown', handlePlayerInteraction);
 
     // Log the guide's data and position
-    console.log("Rat Guide Data:", sprite_data_guide);
-    console.log("Rat Guide Position:", sprite_data_guide.INIT_POSITION.x, sprite_data_guide.INIT_POSITION.y);
+    //console.log("Rat Guide Data:", sprite_data_guide);
+    //console.log("Rat Guide Position:", sprite_data_guide.INIT_POSITION.x, sprite_data_guide.INIT_POSITION.y);
 
     // Quiz data
     const quizData = {
@@ -194,6 +204,7 @@ class GameLevelEgypt {
     }
 
     // NPC data for Pyramid Guard 
+    /** 
     const sprite_src_pyramidguard = path + "/images/gamify/pyramid_guard.png"; // be sure to include the path
     const sprite_greet_pyramidguard = "I am the guardian of the pyramid. Wait--you don't look like you're from around here. I'll have to quiz you! Press 'E' to start the quiz.";
     const sprite_data_pyramidguard = {
@@ -239,8 +250,8 @@ class GameLevelEgypt {
             }
         }, this.ANIMATION_RATE);
     }
-  };
-
+  }; */
+/** 
       const sprite_src_tombguard = path + "/images/gamify/tomb_guard.png";
       const sprite_greet_tombguard = "Ah, yes I've heard of you. I am the guardian of this tomb. I don't usually do this, but I'll let you pass just this once. Don't expect it again. Beware of the cat....";
       //const dialogueSystem = this.dialogueSystem
@@ -255,11 +266,11 @@ class GameLevelEgypt {
         orientation: { rows: 1, columns: 1 },
         down: { row: 0, start: 0, columns: 1 },
         hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        /**dialogues: [
+        dialogues: [
         "You again? I thought I told you to beware of the cat!",
         "Welcome back, traveler. Remember, the cat is always watching.",
         "I see you've returned. The cat is still out there, lurking."
-      ], */
+      ], 
         reaction: function() {
             //none for rn 
         },
@@ -303,11 +314,11 @@ class GameLevelEgypt {
         primaryGame.resume();
         }
       }
-    };
+    }; */
     
     // Start the horizontal movement for both guards
-    sprite_data_pyramidguard.moveHorizontally();
-    sprite_data_tombguard.moveHorizontally();
+    //sprite_data_pyramidguard.moveHorizontally();
+    //sprite_data_tombguard.moveHorizontally();
     //sprite_data_guide.moveHorizontally();
   
     
@@ -315,9 +326,9 @@ class GameLevelEgypt {
         this.classes = [
           { class: Background, data: image_data_bg },
           { class: Player, data: sprite_data_player },
-          { class: Npc, data: sprite_data_pyramidguard },
-          { class: Npc, data: sprite_data_tombguard },
-          { class: Npc, data: sprite_data_guide },
+          //{ class: Npc, data: sprite_data_pyramidguard },
+          //{ class: Npc, data: sprite_data_tombguard },
+          //{ class: Npc, data: sprite_data_guide },
         ];
     
         
