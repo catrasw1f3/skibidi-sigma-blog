@@ -5,14 +5,7 @@
 class DialogueSystem {
     constructor(options = {}) {
       // Default dialogue arrays
-      this.dialogues = options.dialogues || [
-        "nomnomnomnomnomnomnomnomnom",
-        "cheese you. have? is .ok",
-        "call me mouseski the way i be wearing my white button down XD",
-        ">^.^<",
-        "*squeak*",
-        "seen any cats around here...?"
-      ];
+      this.dialogues = options.dialogues;
       
       // Create a unique ID for this dialogue system
       this.id = options.id || "dialogue_" + Math.random().toString(36).substr(2, 9);

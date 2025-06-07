@@ -1,7 +1,7 @@
 // GameControl.js
 import GameLevel from "./GameLevel.js";
 import GameLevelLondon from "./GameLevelLondon.js";
-import GameLevelEgypt from "./GameLeveFae.js";
+import GameLevelEgypt from "./GameLevelBeach.js";
 import GameLevelStarWars from "./GameLevelStarWars.js";
 import GameLevelSquares from "./GameLevelSquares.js";
 
@@ -86,7 +86,7 @@ class GameControl {
                 this.gameLoop();
             }, 1000); // Additional delay for the "Loading..." message
         }, 1000); // Wait for fade-out duration
-    }
+    } 
 
     /**
      * The main game loop 

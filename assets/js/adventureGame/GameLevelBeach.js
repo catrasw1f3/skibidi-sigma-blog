@@ -6,6 +6,7 @@ import Quiz from './Quiz.js';
 import GameControl from './GameControl.js';
 import GameLevelStarWars from './GameLevelStarWars.js';
 import DialogueSystem from './DialogueSystem.js';
+import GameLevelTown from './GameLevelTown.js';
 
 class GameLevelEgypt {
   constructor(gameEnv) {
@@ -18,21 +19,28 @@ class GameLevelEgypt {
 
     // Background data
     const image_src_bg = path + "/images/gamify/tohbeach.jpeg"; // be sure to include the path
+    const image_src_bg2 = path + "/images/gamify/town.jpeg"; // be sure to include the path
     const image_data_bg = {
         name: 'Background',
         greeting: "Oh no! Somehow, we travelled back to Ancient Egypt! Find your way out and travel back to your original timeline!",
         src: image_src_bg,
         pixels: {height: 225, width: 400}
     };
+    const image_data_bg2 = {
+        name: 'Background2',
+        greeting: "",
+        src: image_src_bg2,
+        pixels: {height: 225, width: 400}
+    };
 
         // ...existing code in GameLevelEgypt constructor...
     
     // Show a dialogue box after 10 seconds of gameplay
-    setTimeout(() => {
+    /** setTimeout(() => {
       console.log("Dialogue box should appear now.");
       this.dialogueSystem.showDialogue("Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?");
     }, 10000); // 10000 ms = 10 seconds
-    
+    */
     // ...rest of your constructor code...
 
     // Player data for Tourist
@@ -62,8 +70,7 @@ class GameLevelEgypt {
 
     
     // Rat Guide data
-   /** 
-    const sprite_src_guide = path + "/images/gamify/ratguide.png"; // be sure to include the path
+    const sprite_src_guide = path + "/images/gamify/king.png"; // be sure to include the path
     const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
     const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
     const dialogueSystem = this.dialogueSystem;
@@ -72,25 +79,44 @@ class GameLevelEgypt {
       greeting_intro: sprite_greet_guide_intro,
       greeting_info: sprite_greet_guide_info,
       src: sprite_src_guide,
-      SCALE_FACTOR: 11,  // Adjust this based on your scaling needs
+      SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
-      pixels: { width: 150, height: 194 },
-      INIT_POSITION: { x: width * (3 / 4), y: height - (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
+      pixels: { width: 1200, height: 1580 },
+      INIT_POSITION: { x: width * (7 / 8), y: height - (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
       dialogues: [
-        "nomnomnomnomnomnomnomnomnom",
-        "cheese you. have? is .ok",
-        "call me mouseski the way i be wearing my white button down XD"
+      "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?",
       ],
       reaction: function () {
-       //none for rn
+       dialogueSystem.showDialogue("Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town? (Press 'E' to continue)"); // Using Dialogue system instead of alert
+        console.log("reacted with tomb guard ishfjhersfiqwe")
+        /** setTimeout(() => {
+          // Set a primary game reference from the game environment
+          let primaryGame = gameEnv.gameControl;
+          // Define the game in game level
+          let levelArray = [GameLevelTown];
+          // Define a new GameControl instance with the StarWars level
+          let gameInGame = new GameControl(gameEnv.game,levelArray);
+          // Pause the primary game 
+          primaryGame.pause();
+          // Start the game in game
+          gameInGame.start();
+          // Setup "callback" function to allow transition from game in gaame to the underlying game
+          gameInGame.gameOver = function() {
+            // Call .resume on primary game
+            primaryGame.resume();
+          } 
+        }, 5000); */
+        
       },
-      interact: function() {
-        dialogueSystem.showRandomDialogue(this); // Using Dialogue system instead of alert
+      interact: () => {
+        // Change the background when interacting with the rat
+        this.changeBackground(image_data_bg, image_src_bg2);
+        console.log("interacted with Rat Guide and changed background");
       }
-    }; */
+    }; 
 
     // Custom alert function to handle sequential notifications
     function customAlert(message, callback) {
@@ -328,12 +354,16 @@ class GameLevelEgypt {
           { class: Player, data: sprite_data_player },
           //{ class: Npc, data: sprite_data_pyramidguard },
           //{ class: Npc, data: sprite_data_tombguard },
-          //{ class: Npc, data: sprite_data_guide },
+          { class: Npc, data: sprite_data_guide },
         ];
     
         
       }
-    
+  changeBackground(backgroundData, newSrc) {
+    console.log("Changing background...");
+    backgroundData.src = newSrc; // Update the background source
+    this.gameEnv.redraw(); // Trigger a redraw of the game environment
+  }
     }
     
     export default GameLevelEgypt;
