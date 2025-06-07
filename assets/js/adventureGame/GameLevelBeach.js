@@ -370,6 +370,28 @@ class GameLevelBeach {
     backgroundData.src = newSrc; // Update the background source
    // Trigger a redraw of the game environment
   } */
+    destroy() {
+      // Clear all timers/intervals you created in this level
+      if (this.timers) {
+        this.timers.forEach(id => clearTimeout(id));
+        this.timers = [];
+      }
+      // If you use setInterval, clear those as well
+      if (this.intervals) {
+        this.intervals.forEach(id => clearInterval(id));
+        this.intervals = [];
+    }
+    // Destroy all game objects
+    if (this.gameEnv && Array.isArray(this.gameEnv.gameObjects)) {
+        this.gameEnv.gameObjects.forEach(obj => {
+            if (typeof obj.destroy === "function") obj.destroy();
+        });
+        this.gameEnv.gameObjects.length = 0;
+    }
+    if (this.element && this.element.parentNode) {
+        this.element.parentNode.removeChild(this.element);
+    }
+}
     } 
     
     export default GameLevelBeach;

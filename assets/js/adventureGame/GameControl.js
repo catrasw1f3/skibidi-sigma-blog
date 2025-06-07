@@ -40,7 +40,13 @@ class GameControl {
     /**
      * Transition to the next level with a fade-out and fade-in effect
      */
-    transitionToLevel() {
+    transitionToLevel(index = this.currentLevelIndex) {
+        // Destroy previous level and its objects
+        if (this.currentLevel) {
+            this.currentLevel.destroy();
+            this.currentLevel = null;
+        }
+
         // Create the fade overlay
         const fadeOverlay = document.createElement('div');
         fadeOverlay.style.position = 'fixed';
@@ -75,7 +81,7 @@ class GameControl {
 
         setTimeout(() => {
             // Switch levels when the screen is black
-            const GameLevelClass = this.levelClasses[this.currentLevelIndex];
+            const GameLevelClass = this.levelClasses[index];
             this.currentLevel = new GameLevel(this);
             this.currentLevel.create(GameLevelClass);
 
@@ -99,7 +105,7 @@ class GameControl {
      */
     gameLoop() {
         // If the level is not set to continue, handle the level end condition 
-        if (!this.currentLevel.continue) {
+        if (!this.currentLevel || !this.currentLevel.continue) {
             this.handleLevelEnd();
             return;
         }
@@ -134,9 +140,9 @@ class GameControl {
     handleLevelEnd() {
         // Alert the user that the level has ended
         if (this.currentLevelIndex < this.levelClasses.length - 1) {
-            alert("Level ended.");
+            console.log("Level ended.");
         } else {
-            alert("All levels completed.");
+            console.log("All levels completed.");
         }
         this.currentLevel.destroy();
         // Call the gameOver callback if it exists

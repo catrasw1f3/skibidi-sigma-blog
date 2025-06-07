@@ -26,6 +26,7 @@ for (let gameObjectClass of this.gameObjectClasses) {
   if (this.gameLevel && typeof this.gameLevel.destroy === "function") {
     this.gameLevel.destroy();
   }
+  // Remove all game objects
   if (this.gameEnv && Array.isArray(this.gameEnv.gameObjects)) {
     this.gameEnv.gameObjects.length = 0;
   }

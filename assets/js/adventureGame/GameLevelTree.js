@@ -8,6 +8,7 @@ import GameLevelHollowMind from './GameLevelHollowMind.js';
 
 class GameLevelTree {
   constructor(gameEnv) {
+    this.gameEnv = gameEnv;
     // Values dependent on GameEnv.create()
     let width = gameEnv.innerWidth;
     let height = gameEnv.innerHeight;
@@ -26,8 +27,8 @@ class GameLevelTree {
 
     // Show a dialogue box after 10 seconds of gameplay
     setTimeout(() => {
-      console.log("Dialogue box should appear now.");
-      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going. Follow me!"`);
+      //console.log("Dialogue box should appear now.");
+      //this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going. Follow me!"`);
 
       // After 2 more seconds, start moving the King (Rat Guide) to the right
       setTimeout(() => {
@@ -59,7 +60,7 @@ class GameLevelTree {
         SCALE_FACTOR: PLAYER_SCALE_FACTOR,
         STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: width - (width * 7 / 8), y: height - (height/PLAYER_SCALE_FACTOR) }, 
+        INIT_POSITION: { x: width - (width * 31 / 32), y: height - (height/PLAYER_SCALE_FACTOR) }, 
         pixels: {height: 100, width: 800},
         orientation: {rows: 1, columns: 8 },
         down: {row: 0, start: 4, columns: 2 },
@@ -88,7 +89,7 @@ class GameLevelTree {
       SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: { width: 1200, height: 1580 },
-      INIT_POSITION: { x: width - (width * 15 / 16), y: height - 0.5 * (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
+      INIT_POSITION: { x: width - (width * 3 / 4), y: height - 0.5 * (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -148,8 +149,30 @@ class GameLevelTree {
     console.log("Changing background...");
     backgroundData.src = newSrc; // Update the background source
     this.gameEnv.redraw(); // Trigger a redraw of the game environment
-  }
+ }
 
+  destroy() {
+      // Clear all timers/intervals you created in this level
+      if (this.timers) {
+        this.timers.forEach(id => clearTimeout(id));
+        this.timers = [];
+      }
+      // If you use setInterval, clear those as well
+      if (this.intervals) {
+        this.intervals.forEach(id => clearInterval(id));
+        this.intervals = [];
+    }
+    // Destroy all game objects
+    if (this.gameEnv && Array.isArray(this.gameEnv.gameObjects)) {
+        this.gameEnv.gameObjects.forEach(obj => {
+            if (typeof obj.destroy === "function") obj.destroy();
+        });
+        this.gameEnv.gameObjects.length = 0;
+    }
+    if (this.element && this.element.parentNode) {
+        this.element.parentNode.removeChild(this.element);
+    }
+}
 }
 
 export default GameLevelTree;
