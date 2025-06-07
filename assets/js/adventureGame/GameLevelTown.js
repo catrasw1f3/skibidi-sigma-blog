@@ -3,6 +3,7 @@ import Player from './Player.js';
 import Npc from './Npc.js';
 import Cat from './Cat.js';
 import Enemy from './Enemy.js';
+import DialogueSystem from './DialogueSystem.js';
 
 class GameLevelStarWars {
   constructor(gameEnv) {
@@ -11,8 +12,10 @@ class GameLevelStarWars {
     let height = gameEnv.innerHeight;
     let path = gameEnv.path;
 
+    this.dialogueSystem = new DialogueSystem();
+
     // Background data
-    const image_src_bg = "/images/gamify/tomb.png"; // Default background
+    const image_src_bg = "/images/gamify/town.jpeg"; // Default background
     //const image_src_bg2 = "/images/gamify/tomb2.png"; // Alternate background
     const image_data_bg = {
         id: 'Background',
@@ -20,8 +23,14 @@ class GameLevelStarWars {
         pixels: { height: 570, width: 1025 }
     };
 
+    // Show a dialogue box after 10 seconds of gameplay
+    setTimeout(() => {
+      console.log("Dialogue box should appear now.");
+      this.dialogueSystem.showDialogue(`King: "This part's kinda boring, huh? Let's keep going!`);
+    }, 4000); // 10000 ms = 10 seconds
+
     // Player data for Tourist
-    const sprite_src_player = path + "/images/gamify/creature.png"; // be sure to include the path
+    const sprite_src_player = "/images/gamify/creature.png"; // be sure to include the path
     const PLAYER_SCALE_FACTOR = 4;
     const sprite_data_player = {
         id: 'Player',
@@ -30,10 +39,10 @@ class GameLevelStarWars {
         SCALE_FACTOR: PLAYER_SCALE_FACTOR,
         STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: 0, y: height - (height/PLAYER_SCALE_FACTOR) }, 
+        INIT_POSITION: { x: width - (width * 7 / 8), y: height - (height/PLAYER_SCALE_FACTOR) }, 
         pixels: {height: 100, width: 800},
         orientation: {rows: 1, columns: 8 },
-        down: {row: 0, start: 4, columns: 5 },
+        down: {row: 0, start: 4, columns: 2 },
         downRight: {row: 0, start: 0, columns: 2, rotate: Math.PI/16 },
         downLeft: {row: 0, start: 2, columns: 2, rotate: -Math.PI/16 },
         left: {row: 0, start: 2, columns: 2 },
@@ -207,28 +216,32 @@ class GameLevelStarWars {
     }; */
 
 
-    // NPC Data for Tomb Guard
-    const sprite_src_tombguard = "/images/gamify/tomb_guard.png";
-      const sprite_greet_tombguard = "Sorry, can't let you out."
-      const TOMB_GUARD_SCALE_FACTOR = 5;
-      const sprite_data_tombguard = {
-        id: 'Tomb Guard',
-        greetings: sprite_greet_tombguard,
-        src: sprite_src_tombguard,
-        SCALE_FACTOR: TOMB_GUARD_SCALE_FACTOR,
-        ANIMATION_RATE: 100,
-        pixels: { width: 63, height: 120 },
-        INIT_POSITION: { x: width - (height/TOMB_GUARD_SCALE_FACTOR), y: height - (height/TOMB_GUARD_SCALE_FACTOR) - 50 },
-        orientation: { rows: 1, columns: 1 },
-        down: { row: 0, start: 0, columns: 1 },
-        hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
-        reaction: function() {
-          alert(sprite_greet_tombguard)
-        }
+    // Rat Guide data
+    const sprite_src_guide = "/images/gamify/king.png"; // be sure to include the path
+    const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
+    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
+    const dialogueSystem = this.dialogueSystem;
+    const sprite_data_guide = {
+      id: 'Rat Guide',
+      greeting_intro: sprite_greet_guide_intro,
+      greeting_info: sprite_greet_guide_info,
+      src: sprite_src_guide,
+      SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
+      ANIMATION_RATE: 100,
+      pixels: { width: 1200, height: 1580 },
+      INIT_POSITION: { x: width - (width * 15 / 16), y: height - 0.5 * (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
+      orientation: { rows: 1, columns: 1 },
+      down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
+      hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
+      dialogues: [],
+      reaction: function () {
+      },
+      interact: () => {
+      }
     };
 
     // Time machine data
-    const sprite_src_timemachine = "/images/gamify/timemachine.png"; // be sure to include the path
+    /** const sprite_src_timemachine = "/images/gamify/timemachine.png"; // be sure to include the path
     const sprite_greet_timemachine = "You've made it to the time machine! Will you be able to get back home?";
     const sprite_data_timemachine = {
       id: 'Rat Guide',
@@ -244,20 +257,20 @@ class GameLevelStarWars {
       reaction: function() {
         //alert(sprite_greet_timemachine)
       }
-    };
+    }; */
 
     
-    console.log("Cat data:", sprite_data_cat);
-    console.log("Cat initial position:", sprite_data_cat.INIT_POSITION);
+    //console.log("Cat data:", sprite_data_cat);
+    //console.log("Cat initial position:", sprite_data_cat.INIT_POSITION);
     
 
     // List of objects definitions for this level
     this.classes = [
       { class: Background, data: image_data_bg },
       { class: Player, data: sprite_data_player },
-      { class: Npc, data: sprite_data_tombguard },
-      { class: Npc, data: sprite_data_timemachine },
-      { class: Enemy, data: sprite_data_cat },
+      { class: Npc, data: sprite_data_guide },
+      //{ class: Npc, data: sprite_data_timemachine },
+      //{ class: Enemy, data: sprite_data_cat },
     ];
   }
 

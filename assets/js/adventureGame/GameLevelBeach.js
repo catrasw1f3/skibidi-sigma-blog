@@ -10,6 +10,8 @@ import GameLevelTown from './GameLevelTown.js';
 
 class GameLevelEgypt {
   constructor(gameEnv) {
+    this.gameEnv = gameEnv; // <-- Add this line at the top of your constructor
+
     // Values dependent on this.gameEnv.create()
     let width = gameEnv.innerWidth;
     let height = gameEnv.innerHeight;
@@ -56,7 +58,7 @@ class GameLevelEgypt {
         INIT_POSITION: { x: 0, y: height - (height/PLAYER_SCALE_FACTOR) }, 
         pixels: {height: 100, width: 800},
         orientation: {rows: 1, columns: 8 },
-        down: {row: 0, start: 4, columns: 5 },
+        down: {row: 0, start: 4, columns: 2 },
         downRight: {row: 0, start: 0, columns: 2, rotate: Math.PI/16 },
         downLeft: {row: 0, start: 2, columns: 2, rotate: -Math.PI/16 },
         left: {row: 0, start: 2, columns: 2 },
@@ -90,7 +92,7 @@ class GameLevelEgypt {
       "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?",
       ],
       reaction: function () {
-       dialogueSystem.showDialogue("Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town? (Press 'E' to continue)"); // Using Dialogue system instead of alert
+       dialogueSystem.showDialogue(`King: "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?" (Press 'E' to continue)`); // Using Dialogue system instead of alert
         console.log("reacted with tomb guard ishfjhersfiqwe")
         /** setTimeout(() => {
           // Set a primary game reference from the game environment
@@ -113,8 +115,23 @@ class GameLevelEgypt {
       },
       interact: () => {
         // Change the background when interacting with the rat
-        this.changeBackground(image_data_bg, image_src_bg2);
-        console.log("interacted with Rat Guide and changed background");
+        //this.changeBackground(image_data_bg, image_src_bg2);
+        //console.log("interacted with Rat Guide and changed background");
+        // Set a primary game reference from the game environment
+          let primaryGame = gameEnv.gameControl;
+          // Define the game in game level
+          let levelArray = [GameLevelTown];
+          // Define a new GameControl instance with the StarWars level
+          let gameInGame = new GameControl(gameEnv.game,levelArray);
+          // Pause the primary game 
+          primaryGame.pause();
+          // Start the game in game
+          gameInGame.start();
+          // Setup "callback" function to allow transition from game in gaame to the underlying game
+          gameInGame.gameOver = function() {
+            // Call .resume on primary game
+            primaryGame.resume();
+          } 
       }
     }; 
 
@@ -358,12 +375,12 @@ class GameLevelEgypt {
         ];
     
         
-      }
+      } /** 
   changeBackground(backgroundData, newSrc) {
     console.log("Changing background...");
     backgroundData.src = newSrc; // Update the background source
-    this.gameEnv.redraw(); // Trigger a redraw of the game environment
-  }
-    }
+   // Trigger a redraw of the game environment
+  } */
+    } 
     
     export default GameLevelEgypt;
