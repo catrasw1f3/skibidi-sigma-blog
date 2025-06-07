@@ -1,7 +1,7 @@
 // GameControl.js
 import GameLevel from "./GameLevel.js";
 import GameLevelLondon from "./GameLevelLondon.js";
-import GameLevelEgypt from "./GameLevelEgypt.js";
+import GameLevelEgypt from "./GameLeveFae.js";
 import GameLevelStarWars from "./GameLevelStarWars.js";
 import GameLevelSquares from "./GameLevelSquares.js";
 

@@ -17,36 +17,36 @@ class GameLevelEgypt {
     this.dialogueSystem = new DialogueSystem();
 
     // Background data
-    const image_src_egypt = path + "/images/gamify/ancient_egypt_bg.png"; // be sure to include the path
-    const image_data_egypt = {
-        name: 'Ancient Egypt',
+    const image_src_bg = path + "/images/gamify/tohbeach.jpeg"; // be sure to include the path
+    const image_data_bg = {
+        name: 'Background',
         greeting: "Oh no! Somehow, we travelled back to Ancient Egypt! Find your way out and travel back to your original timeline!",
-        src: image_src_egypt,
+        src: image_src_bg,
         pixels: {height: 225, width: 400}
     };
 
 
     // Player data for Tourist
-    const sprite_src_tourist = path + "/images/gamify/tourist.png"; // be sure to include the path
-    const TOURIST_SCALE_FACTOR = 5;
-    const sprite_data_tourist = {
-        id: 'Tourist',
+    const sprite_src_player = path + "/images/gamify/creature.png"; // be sure to include the path
+    const PLAYER_SCALE_FACTOR = 4;
+    const sprite_data_player = {
+        id: 'Player',
         greeting: "I'm you! And I'm definitely not in the right era...",
-        src: sprite_src_tourist,
-        SCALE_FACTOR: TOURIST_SCALE_FACTOR,
+        src: sprite_src_player,
+        SCALE_FACTOR: PLAYER_SCALE_FACTOR,
         STEP_FACTOR: 250,
         ANIMATION_RATE: 50,
-        INIT_POSITION: { x: 0, y: height - (height/TOURIST_SCALE_FACTOR) }, 
-        pixels: {height: 320, width: 120},
-        orientation: {rows: 4, columns: 3 },
-        down: {row: 0, start: 0, columns: 3 },
-        downRight: {row: 1, start: 0, columns: 3, rotate: Math.PI/16 },
-        downLeft: {row: 2, start: 0, columns: 3, rotate: -Math.PI/16 },
-        left: {row: 2, start: 0, columns: 3 },
-        right: {row: 1, start: 0, columns: 3 },
-        up: {row: 3, start: 0, columns: 3 },
-        upLeft: {row: 2, start: 0, columns: 3, rotate: Math.PI/16 },
-        upRight: {row: 1, start: 0, columns: 3, rotate: -Math.PI/16 },
+        INIT_POSITION: { x: 0, y: height - (height/PLAYER_SCALE_FACTOR) }, 
+        pixels: {height: 100, width: 800},
+        orientation: {rows: 1, columns: 8 },
+        down: {row: 0, start: 4, columns: 5 },
+        downRight: {row: 0, start: 0, columns: 2, rotate: Math.PI/16 },
+        downLeft: {row: 0, start: 2, columns: 2, rotate: -Math.PI/16 },
+        left: {row: 0, start: 2, columns: 2 },
+        right: {row: 0, start: 0, columns: 2 },
+        up: {row: 0, start: 6, columns: 2 },
+        upLeft: {row: 0, start: 2, columns: 2, rotate: Math.PI/16 },
+        upRight: {row: 0, start: 0, columns: 2, rotate: -Math.PI/16 },
         hitbox: { widthPercentage: 0.45, heightPercentage: 0.2 },
         keypress: { up: 87, left: 65, down: 83, right: 68 } // W, A, S, D
     };
@@ -65,7 +65,7 @@ class GameLevelEgypt {
       SCALE_FACTOR: 11,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: { width: 150, height: 194 },
-      INIT_POSITION: { x: width * (3 / 4), y: height - (height / TOURIST_SCALE_FACTOR) }, // Adjusted position
+      INIT_POSITION: { x: width * (3 / 4), y: height - (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -90,7 +90,7 @@ class GameLevelEgypt {
 
     // Display the initial notification automatically
     setTimeout(() => {
-      customAlert(image_data_egypt.greeting);
+      customAlert(image_data_bg.greeting);
     }, 1000); // Display the first notification 1 second after the game starts
 
     // Function to handle player interaction and display Rat Guide notifications
@@ -313,8 +313,8 @@ class GameLevelEgypt {
     
         // List of objects defnitions for this level
         this.classes = [
-          { class: Background, data: image_data_egypt },
-          { class: Player, data: sprite_data_tourist },
+          { class: Background, data: image_data_bg },
+          { class: Player, data: sprite_data_player },
           { class: Npc, data: sprite_data_pyramidguard },
           { class: Npc, data: sprite_data_tombguard },
           { class: Npc, data: sprite_data_guide },
