@@ -93,26 +93,8 @@ class GameLevelBeach {
       "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?",
       ],
       reaction: function () {
-       dialogueSystem.showDialogue(`King: "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?" (Press 'E' to continue)`); // Using Dialogue system instead of alert
+        dialogueSystem.showDialogue(`King: "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?" (Press 'E' to continue)`); // Using Dialogue system instead of alert
         console.log("reacted with tomb guard ishfjhersfiqwe")
-        /** setTimeout(() => {
-          // Set a primary game reference from the game environment
-          let primaryGame = gameEnv.gameControl;
-          // Define the game in game level
-          let levelArray = [GameLevelTown];
-          // Define a new GameControl instance with the StarWars level
-          let gameInGame = new GameControl(gameEnv.game,levelArray);
-          // Pause the primary game 
-          primaryGame.pause();
-          // Start the game in game
-          gameInGame.start();
-          // Setup "callback" function to allow transition from game in gaame to the underlying game
-          gameInGame.gameOver = function() {
-            // Call .resume on primary game
-            primaryGame.resume();
-          } 
-        }, 5000); */
-        
       },
       interact: () => {
         if (gameEnv.gameControl) {
@@ -131,10 +113,10 @@ class GameLevelBeach {
     }
 
     // Display the initial notification automatically
-    setTimeout(() => {
+    /** setTimeout(() => {
       customAlert(image_data_bg.greeting);
     }, 1000); // Display the first notification 1 second after the game starts
-
+    */
     // Function to handle player interaction and display Rat Guide notifications
     //function handlePlayerInteraction(event) {
       //const keys = [87, 65, 83, 68]; // W, A, S, D key codes

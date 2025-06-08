@@ -26,7 +26,7 @@ class GameLevelHollowMind {
     setTimeout(() => {
       console.log("Dialogue box should appear now.");
       this.dialogueSystem.showDialogue(`King: "Maybe this was a mistake. This place is really creepy.. I- WHAT IS THAT?!"`);
-    }, 600); // Initial 0.6 second delay
+    }, 2000); // Initial 0.6 second delay
 
     // Player data for Tourist
     const sprite_src_player = path + "/images/gamify/creature.png"; // be sure to include the path
@@ -75,7 +75,7 @@ class GameLevelHollowMind {
     const sprite_data_cat = {
         id: 'Cat',
         src: sprite_src_cat,
-        SCALE_FACTOR: 7,
+        SCALE_FACTOR: 2,
         ANIMATION_RATE: 50,
         pixels: {height: 2000, width: 1545},
         INIT_POSITION: { x: width / 2, y: height / 4 },
@@ -236,6 +236,7 @@ class GameLevelHollowMind {
       "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?",
       ],
         reaction: function() {
+            
         }
     }; 
 
@@ -266,9 +267,9 @@ class GameLevelHollowMind {
     // List of objects definitions for this level
     this.classes = [
       { class: Background, data: image_data_bg },
-      { class: Player, data: sprite_data_tourist },
-      { class: Npc, data: sprite_data_tombguard },
-      { class: Npc, data: sprite_data_timemachine },
+      { class: Player, data: sprite_data_player },
+      { class: Npc, data: sprite_data_guide },
+      //{ class: Npc, data: sprite_data_timemachine },
       { class: Enemy, data: sprite_data_cat },
     ];
   }

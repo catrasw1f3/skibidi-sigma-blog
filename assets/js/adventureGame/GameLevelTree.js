@@ -78,8 +78,8 @@ class GameLevelTree {
 
     // Rat Guide data
     const sprite_src_guide = "/images/gamify/king.png"; // be sure to include the path
-    const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
-    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
+    const sprite_greet_guide_intro = "";
+    const sprite_greet_guide_info = ""; // Truncated for brevity
     const dialogueSystem = this.dialogueSystem;
     const sprite_data_guide = {
       id: 'Rat Guide',
@@ -94,7 +94,8 @@ class GameLevelTree {
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
       dialogues: [],
-      reaction: function () {
+      reaction: function() {
+            dialogueSystem.showDialogue(`King: "Is this... a memory tree? I remember Luz telling me about these when she went inside Willow's memories. But whose memories are these..?" (Press 'E' to continue)`);
       },
       interact: () => {
         if (gameEnv.gameControl) {

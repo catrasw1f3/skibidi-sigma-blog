@@ -136,7 +136,7 @@ class Player extends Character {
         this.updateVelocityAndDirection();
         super.handleCollisionReaction(other);
     }
-
+    
 
 }
 
