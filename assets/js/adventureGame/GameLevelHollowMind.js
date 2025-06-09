@@ -13,6 +13,8 @@ class GameLevelHollowMind {
     let path = gameEnv.path;
 
     this.dialogueSystem = new DialogueSystem();
+    this.timers = [];
+    this.gameEnv = gameEnv;
 
     // Background data
     const image_src_bg = "/images/gamify/hollowmind.png"; // Default background 
@@ -21,12 +23,32 @@ class GameLevelHollowMind {
         src: image_src_bg,
         pixels: { height: 570, width: 1025 }
     };
-
-    // Show a dialogue box after 4 seconds of gameplay
-    setTimeout(() => {
+    
+    this.timers.push(setTimeout(() => {
       console.log("Dialogue box should appear now.");
-      this.dialogueSystem.showDialogue(`King: "Maybe this was a mistake. This place is really creepy.. I- WHAT IS THAT?!"`);
-    }, 2000); // Initial 0.6 second delay
+      this.dialogueSystem.showDialogue(`King: "Maybe this was a mistake. This place is really creepy.. I- WHAT IS THAT?!`);
+
+      // After 0.5 more seconds, start moving the King (Rat Guide) to the right
+      this.timers.push(setTimeout(() => {
+        const kingObj = this.gameEnv.gameObjects.find(obj => obj.data && obj.data.id === 'Rat Guide');
+        if (!kingObj) return;
+
+        const targetX = this.gameEnv.innerWidth - kingObj.width - 20;
+        const moveSpeed = 5;
+        function moveKing() {
+          if (kingObj.position.x < targetX) {
+            kingObj.position.x += moveSpeed;
+            if (kingObj.position.x > targetX) kingObj.position.x = targetX;
+            requestAnimationFrame(moveKing);
+          } else {
+            // Show another dialogue box after King finishes moving
+            this.dialogueSystem.showDialogue(`King: "HURRY!!!! WE CAN ESCAPE!" (Press 'E' to continue)`);
+          }
+        }
+        moveKing = moveKing.bind(this);
+        moveKing();
+      }, 500)); 
+    }, 4000)); 
 
     // Player data for Tourist
     const sprite_src_player = path + "/images/gamify/creature.png"; // be sure to include the path
@@ -228,7 +250,7 @@ class GameLevelHollowMind {
       SCALE_FACTOR: 10,  // Adjust this based on your scaling needs
       ANIMATION_RATE: 100,
       pixels: { width: 1200, height: 1580 },
-      INIT_POSITION: { x: width * (7 / 8), y: height - (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
+      INIT_POSITION: { x: 0, y: height - (height / PLAYER_SCALE_FACTOR) }, // Adjusted position
       orientation: { rows: 1, columns: 1 },
       down: { row: 0, start: 0, columns: 1 },  // This is the stationary npc, down is default 
       hitbox: { widthPercentage: 0.1, heightPercentage: 0.2 },
@@ -236,7 +258,14 @@ class GameLevelHollowMind {
       "Welcome to the Boiling Isles! Although charming, we need to find a way back home. Why not explore the town?",
       ],
         reaction: function() {
-            
+        },
+        interact: () => {
+          if (gameEnv.gameControl) {
+            // Set the next level index or swap out the levelClasses array if needed
+            gameEnv.gameControl.currentLevelIndex = 4;
+            gameEnv.gameControl.transitionToLevel();
+          }
+          console.log("going to next level");
         }
     }; 
 

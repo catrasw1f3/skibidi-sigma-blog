@@ -49,8 +49,8 @@ class GameLevelTown {
           }
         }
         moveKing();
-      }, 500)); // <-- close the inner setTimeout here
-    }, 4000)); // <-- close the outer setTimeout here
+      }, 500)); 
+    }, 4000)); 
 
     // Player data for Tourist
     const sprite_src_player = "/images/gamify/creature.png"; // be sure to include the path

@@ -7,6 +7,7 @@ import GameLevelTown from "./GameLevelTown.js";
 import GameLevelBeach from "./GameLevelBeach.js";
 import GameLevelTree from "./GameLevelTree.js";
 import GameLevelHollowMind from "./GameLevelHollowMind.js";
+import GameLevelCollector from "./GameLevelCollector.js";
 
 class GameControl {
     /**
@@ -14,7 +15,7 @@ class GameControl {
      * @param {*} path - The path to the game assets
      * @param {*} levelClasses - The classes of for each game level
      */
-    constructor(path, levelClasses = [GameLevelBeach, GameLevelTown, GameLevelTree, GameLevelHollowMind, GameLevelLondon, GameLevelSquares]) {
+    constructor(path, levelClasses = [GameLevelBeach, GameLevelTown, GameLevelTree, GameLevelHollowMind, GameLevelCollector, GameLevelLondon, GameLevelSquares]) {
         // GameControl properties
         this.path = path;
         this.levelClasses = levelClasses;
