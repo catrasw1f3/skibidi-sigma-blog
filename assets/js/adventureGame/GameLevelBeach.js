@@ -74,8 +74,8 @@ class GameLevelBeach {
     
     // Rat Guide data
     const sprite_src_guide = path + "/images/gamify/king.png"; // be sure to include the path
-    const sprite_greet_guide_intro = "Hi, you don't look like you're from around here. I'm the Rat Guide, and I'll help you navigate Ancient Egypt. Press OK to learn more about this era!";
-    const sprite_greet_guide_info = "Ancient Egypt was one of the most advanced and influential civilizations in history..."; // Truncated for brevity
+    const sprite_greet_guide_intro = "";
+    const sprite_greet_guide_info = ""; // Truncated for brevity
     const dialogueSystem = this.dialogueSystem;
     const sprite_data_guide = {
       id: 'Rat Guide',
