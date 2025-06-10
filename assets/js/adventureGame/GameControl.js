@@ -15,7 +15,7 @@ class GameControl {
      * @param {*} path - The path to the game assets
      * @param {*} levelClasses - The classes of for each game level
      */
-    constructor(path, levelClasses = [GameLevelBeach, GameLevelTown, GameLevelTree, GameLevelHollowMind, GameLevelCollector, GameLevelLondon, GameLevelSquares]) {
+    constructor(path, levelClasses = [/**GameLevelBeach, GameLevelTown, GameLevelTree, GameLevelHollowMind, */ GameLevelCollector, GameLevelLondon, GameLevelSquares]) {
         // GameControl properties
         this.path = path;
         this.levelClasses = levelClasses;
